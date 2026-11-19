@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Movespeed — M25 pro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* стенд «Б» */
+
+:root{--bg:#060a17;--panel:#0b1226;--line:rgba(208,228,253,.14);--fg:#e8eefc;--mut:#8b97b3;--acc:#00a1e9;--pad:max(32px,calc((100% - 1376px)/2))}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 Onest,system-ui,sans-serif;overflow-x:clip}
+.mono{font:500 11px/1.45 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase}
+.acc{color:var(--acc)}
+/* ---------- hero ---------- */
+.hb{position:relative;z-index:2;height:100svh;min-height:640px;padding:0 var(--pad);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto 1fr auto;isolation:isolate}
+.bgB{position:absolute;inset:0;z-index:-3;overflow:hidden;pointer-events:none}
+.bgB video{width:100%;height:100%;object-fit:cover;opacity:.9}
+.bgB::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,10,23,.55),rgba(6,10,23,0) 30%,rgba(6,10,23,0) 60%,rgba(6,10,23,.95))}
+nav{grid-column:1/-1;display:flex;align-items:center;gap:24px;height:72px;font-size:14px;color:#c7d0e4;position:relative;z-index:4}
+nav .logo{display:block;color:#00a1e9;line-height:0}  /* логотип — refs/brand/movespeed-logo.svg, цвет как в файле */
+nav .logo svg{display:block;height:18px;width:auto}
+nav .sp{flex:1}
+nav .btn{position:relative;display:inline-block;font-weight:500;color:var(--fg);padding:8px 26px;border-radius:999px;border:1px solid rgba(0,161,233,.28);background:rgba(0,161,233,.06)}
+nav .btn::after{content:"";position:absolute;left:12.5%;right:12.5%;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,#00a1e9,transparent)}
+.lead{grid-column:1;grid-row:2;align-self:center;position:relative;z-index:3;padding-bottom:4vh}
+.eb{display:flex;align-items:flex-end;gap:16px;color:#a9b3c6;margin-bottom:clamp(14px,3vh,28px)}
+.eb .rule{flex:0 1 160px;height:1px;background:var(--line);margin-bottom:6px}
+h1{margin:0;font-weight:600;text-transform:uppercase;letter-spacing:-.025em;line-height:.94;font-size:min(5.1vw,10.6vh,78px)}
+h1 span{display:block}
+h1 .brand{color:var(--acc)}
+.sub{margin:clamp(14px,2.6vh,26px) 0 0;color:var(--mut);font-size:clamp(16px,2.1vh,19px)}
+.typed{color:var(--fg);border-right:2px solid var(--acc);padding-right:2px}
+.models{grid-column:1;grid-row:3;padding-bottom:clamp(18px,3.4vh,34px);position:relative;z-index:3}
+.models .k{color:var(--mut);margin-bottom:10px}
+.models ul{list-style:none;margin:0;padding:0;display:flex;gap:6px}
+.models li{min-width:96px;padding:0 0 8px;color:var(--mut);position:relative;cursor:pointer}
+.models li::after{content:"";position:absolute;left:0;right:6px;bottom:0;height:1px;background:var(--line)}
+.models li.cur{color:var(--fg)}
+.models li.cur::before{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--acc);z-index:1;animation:prg 10s linear infinite}
+@keyframes prg{to{width:calc(100% - 6px)}}
+.edge{position:absolute;right:var(--pad);bottom:clamp(120px,17vh,170px);z-index:3;display:flex;flex-direction:column-reverse;align-items:flex-end;gap:10px;color:#a9b3c6;text-align:right}
+.edge i{display:block;width:1px;height:clamp(48px,9vh,90px);background:var(--line);position:relative;margin-right:2px}
+.edge i::after{content:"";position:absolute;left:-2px;top:-2px;width:5px;height:5px;border-radius:50%;background:var(--acc)}
+/* ---------- секция 02 ---------- */
+.s2{position:relative;z-index:1;margin-top:-1px;background:var(--panel);padding:calc(clamp(260px,60vh,620px)*.2 + 40px) var(--pad) clamp(48px,8vh,88px);
+  clip-path:polygon(0 0,34% 0,calc(34% + 32px) 32px,100% 32px,100% 100%,0 100%);
+  display:grid;grid-template-columns:minmax(0,4fr) minmax(0,4fr) minmax(0,3.4fr);gap:clamp(24px,4vw,64px);align-items:start}
+.s2 .eb{margin-bottom:18px}
+.s2 h2{margin:0;font-weight:600;text-transform:uppercase;letter-spacing:-.02em;line-height:.95;font-size:clamp(40px,4.4vw,64px)}
+.s2 .full{color:var(--mut);margin-top:10px}
+.s2 p{color:#b9c3d8;max-width:340px;margin:18px 0 22px}
+.s2 .more{color:var(--fg);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:4px}
+.s2 .more span{color:var(--acc)}
+.anat{position:relative;align-self:stretch;min-height:240px}
+.anat svg{width:100%;height:auto;display:block;overflow:visible}
+.anat .note{fill:#a9b3c6;font:500 10.5px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase}
+.anat .dimt{fill:var(--mut);font:500 10px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.06em}
+.stats{list-style:none;margin:0;padding:0}
+.stats li{position:relative;padding:14px 0 14px;border-bottom:1px solid var(--line)}
+.stats li:first-child{padding-top:0}
+.stats li::after{content:"";position:absolute;right:0;bottom:-1px;width:28px;height:1px;background:rgba(208,228,253,.45)}
+.stats b{display:block;font-weight:500;font-size:clamp(28px,3vw,40px);line-height:1.05;letter-spacing:-.01em}
+.stats b small{font-size:.45em;color:var(--mut);font-weight:500;margin-left:6px;letter-spacing:0}
+.stats span{display:block;color:var(--mut);font-size:14px;margin-top:4px}
+.stats em{font-style:normal;color:#f0b35a;font:500 9.5px "JetBrains Mono",monospace;letter-spacing:.06em;margin-left:8px;vertical-align:2px}
+.tail{height:40vh;background:var(--bg)}
+/* ---------- телефон ---------- */
+@media (max-width:860px){
+  :root{--pad:16px}
+  .hb{grid-template-columns:1fr;grid-template-rows:auto auto 1fr auto;height:auto;min-height:100svh}
+  nav{height:60px}nav .item{display:none}
+  .lead{grid-row:2;padding:18px 0 0}
+  h1{font-size:10.6vw}
+  .models{grid-row:4}.models ul{overflow-x:auto}.models li{min-width:84px;font-size:13px}
+  .edge{display:none}
+  .s2{grid-template-columns:1fr;padding-top:110px;clip-path:polygon(0 0,40% 0,calc(40% + 20px) 20px,100% 20px,100% 100%,0 100%)}
+  .anat{min-height:0}
+}
+
+/* картинка модели вместо 3D [В 19.11: «берём этот вариант и добавляем на сайт а 3d удаляем»]: постановочный кадр
+   производителя с вырезанным фоном (ноутбук, аккумулятор, кабели, свечение). У модели без картинки — прежняя заглушка-корпус. */
+.pwrap{display:none;position:absolute;left:44%;right:var(--pad);top:0;bottom:0;pointer-events:none;z-index:2}  /* правый край — по колонке контента: на широком экране картинка не уходит под «Листайте» */
+.hb.img .pwrap{display:block}
+/* центр аккумулятора (61 % ширины кадра) — там же, где стояла заглушка-корпус; верх гаснет, как гасли нарисованные кабели */
+.pimg{position:absolute;left:50%;transform:translateX(-61%);bottom:calc(clamp(260px,60vh,620px)*-.3);height:calc(clamp(260px,60vh,620px)*1.75);width:auto;max-width:none;
+  /* гаснут верх (кабели уходят вверх) и правый край (лучи у производителя упираются в край кадра) */
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 14%),linear-gradient(to left,transparent 0,#000 14%);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to bottom,transparent 0,#000 14%),linear-gradient(to left,transparent 0,#000 14%);mask-composite:intersect}
+@media (max-width:860px){
+  .pwrap{position:relative;grid-row:3;left:auto;right:auto;top:auto;bottom:auto;height:420px;margin:0 calc(var(--pad)*-1)}
+  .pimg{bottom:0;height:440px;  /* низ — в своей строке: не наезжает на вкладки моделей; низ тоже гаснет */
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 82%,transparent),linear-gradient(to left,transparent 0,#000 14%);
+    mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 82%,transparent),linear-gradient(to left,transparent 0,#000 14%)}
+}
+
+/* кнопка видео модели (владелец 19.11: «кнопку смотреть видео к каждой модели — оно есть») */
+.watch{display:inline-flex;align-items:center;gap:14px;margin-top:clamp(18px,3.2vh,32px);color:var(--fg);background:none;border:0;padding:0;font:500 15px/1.3 Onest,system-ui,sans-serif;cursor:pointer;text-align:left}
+.watch i{flex:none;width:48px;height:48px;border-radius:50%;border:1px solid rgba(208,228,253,.35);display:grid;place-items:center;transition:border-color .3s,background .3s}
+.watch i::before{content:"";width:11px;height:14px;background:var(--fg);clip-path:polygon(0 0,100% 50%,0 100%);margin-left:4px}  /* треугольник ▶ */
+.watch:hover i,.watch:focus-visible i{border-color:var(--acc);background:rgba(0,161,233,.12)}
+.watch:focus-visible{outline:none}
+.watch small{display:block;margin-top:3px;color:var(--mut);font:500 11px/1.2 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase}
+.vd{border:1px solid var(--line);background:#070d1f;color:var(--fg);padding:0;width:min(960px,92vw)}
+.vd::backdrop{background:rgba(3,6,15,.82)}
+.vd .h{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line)}
+.vd .x{background:none;border:1px solid var(--line);color:var(--fg);width:36px;height:36px;cursor:pointer;font-size:16px}
+.vd .ph{aspect-ratio:16/9;display:grid;place-items:center;color:var(--mut);font-size:14px}
+/* названия моделей крупнее (владелец 19.11) */
+.models ul{font-size:14px;letter-spacing:.08em;color:#a9b3c6}
+.models li{min-width:118px;padding-bottom:10px}
+@media (max-width:860px){.models ul{font-size:12.5px}.models li{min-width:0;padding-right:16px}}
+
+
+/* фон по образцу владельца (glass-lines-card): свет справа — дуга снизу-слева вверх-вправо, рифлёное стекло (сдвиг полос фильтром) */
+.bgS{position:absolute;inset:0;width:100%;height:100%;z-index:-3;pointer-events:none;display:none}
+.bgS .arc{transform-box:view-box;animation:arcmv 9s ease-in-out infinite alternate}
+@keyframes arcmv{from{transform:translate(-30px,14px)}to{transform:translate(70px,-34px)}}
+body.fS .bgS{display:block}body.fS .bgB video{display:none}
+body.fM .bgB video{transform:scaleX(-1)}
+.hb::after{content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(to bottom,rgba(6,10,23,.5),rgba(6,10,23,0) 22%,rgba(6,10,23,0) 72%,rgba(6,10,23,.95))}
+
+/* шов hero → секция 02 (владелец 19.11: «красивый фон прерывается тёмной полосой снизу»): фон hero продолжается под вырез секции 02,
+   затемнение снизу слабее; hero без своего слоя наложения, чтобы панель 02 легла поверх фона, а корпус — поверх панели */
+.hb{z-index:auto;isolation:auto}
+.bgB,.bgS,.hb::after{z-index:0;bottom:-34px;height:auto}
+.bgS{inset:0 0 -34px 0;height:calc(100% + 34px)}
+.hb::after{inset:0 0 -34px 0;background:linear-gradient(to bottom,rgba(6,10,23,.5),rgba(6,10,23,0) 22%,rgba(6,10,23,0) 80%,rgba(6,10,23,.3))}
+.bgB::after{background:linear-gradient(to bottom,rgba(6,10,23,.55),rgba(6,10,23,0) 30%,rgba(6,10,23,0) 80%,rgba(6,10,23,.3))}
+body.fS .models li{text-shadow:0 0 10px rgba(6,10,23,.95),0 0 3px rgba(6,10,23,.95)}
+@media (max-width:860px){.bgB,.bgS,.hb::after{inset:0 0 -22px 0}.bgS{height:calc(100% + 22px)}}
+
+/* текст поверх света справа: подложка, контраст ≥4,5 (замер 19.11) */
+body.fS nav .btn{background:rgba(6,10,23,.6)}
+body.fS .edge span{background:rgba(6,10,23,.82);padding:2px 0;color:#c7d0e4;text-shadow:0 0 14px rgba(6,10,23,.95),0 0 5px rgba(6,10,23,.95)}
+.fsw{position:fixed;right:12px;bottom:12px;z-index:50;display:flex;gap:6px;align-items:center;padding:6px 8px;background:rgba(6,10,23,.85);border:1px solid var(--line);font:500 11px/1 "JetBrains Mono",monospace;color:var(--mut)}
+.fsw button{font:inherit;color:var(--fg);background:transparent;border:1px solid var(--line);padding:6px 8px;cursor:pointer}
+.fsw button[aria-pressed="true"]{border-color:var(--acc);color:#fff}
+@media (prefers-reduced-motion:reduce){.bgS .arc{animation:none}}
+@media (max-width:860px){.fsw{position:static;margin:16px;flex-wrap:wrap}.bgS .shift{transform-box:view-box;transform:translate(-60px,300px)}
+  body.fS .models ul{background:rgba(6,10,23,.72);margin:0 -16px;padding:10px 16px 0;box-shadow:0 -14px 22px rgba(6,10,23,.6)}
+  body.fS .hb::after{background:linear-gradient(to bottom,rgba(6,10,23,.85) 0,rgba(6,10,23,.75) 42%,rgba(6,10,23,0) 58%,rgba(6,10,23,0) 78%,rgba(6,10,23,.62) 92%,rgba(6,10,23,.55))}}
+
+@media (prefers-reduced-motion:reduce){.models li.cur::before{animation:none;width:calc(100% - 6px)}.typed{border-right-color:transparent}}
+
+/* картинка выше, свечение левее [В 19.11: «у нас ведь был вид плашки а ты его растянул… провода если будут уходить на вверх
+   ничего страшного… свечение можно сделать левее»]: ноутбук не заходит в секцию 02 — низ кадра гаснет над её вырезом,
+   кабели уходят за верхний край экрана; видео фона сдвинуто влево и чуть увеличено, чтобы справа не открылся край */
+@media (min-width:861px){
+  /* ноутбук на переднем плане [В 19.11: «может быть всё-таки ноутбук на передний план сделать, а то свечение сейчас над ним слоем выше»]:
+     низ не гаснет, обрез кадра уходит под «папку» 02 (её верх справа от ступеньки — на 32 px ниже стыка, обрез — на 48 px) */
+  .pimg{bottom:-48px;transform:translateX(-57%);  /* правее: поднятый ноутбук краем касался «Ы» заголовка на 1920 */
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 18%),linear-gradient(to left,transparent 0,#000 14%);
+    mask-image:linear-gradient(to bottom,transparent 0,#000 18%),linear-gradient(to left,transparent 0,#000 14%)}
+  .pwrap{z-index:1}  /* слои: фон 0 → свет стыка 1 (::before, раньше в DOM) → картинка 1 → панель 02 (1, ещё позже в DOM) → текст 3 */
+  body.fM .bgB video{transform:translateX(-14%) scale(-1.28,1.28)}
+}
+
+/* стык hero → 02 виден всегда [В 19.11: «стык не оч хорошо виден… элемент папки тоже плохо видно на стыке снизу и право
+   надо бы усилить эффект голубого свечения и этого элемента папки чтобы всегда было видно»]:
+   свой голубой свет над стыком (не зависит от кадра видео) + светлая линия по контуру «папки» секции 02 */
+/* линию по кромке владелец отменил [В 19.11: «нет не подсвечивать кромку… переход голубого сделать более плавный»]:
+   «папку» выделяет только свет за ней; спад плавный — много точек по кривой ease-out, без ступеньки */
+.hb::before{content:"";position:absolute;left:0;right:0;bottom:-34px;height:calc(34px + clamp(160px,26vh,280px));z-index:1;pointer-events:none;
+  background:linear-gradient(to top,rgba(0,140,240,.5) 0,rgba(0,140,240,.43) 8%,rgba(0,140,240,.34) 18%,rgba(0,140,240,.25) 29%,rgba(0,140,240,.17) 41%,
+    rgba(0,140,240,.1) 54%,rgba(0,140,240,.05) 68%,rgba(0,140,240,.015) 84%,rgba(0,140,240,0) 100%);
+  /* слева слабее: над стыком там вкладки моделей, контраст держим ≥ 5; рост к ступеньке тоже плавный */
+  -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,.1) 0,rgba(0,0,0,.13) 22%,rgba(0,0,0,.3) 32%,rgba(0,0,0,.6) 42%,rgba(0,0,0,.88) 52%,#000 62%);
+  mask-image:linear-gradient(90deg,rgba(0,0,0,.1) 0,rgba(0,0,0,.13) 22%,rgba(0,0,0,.3) 32%,rgba(0,0,0,.6) 42%,rgba(0,0,0,.88) 52%,#000 62%)}
+
+/* схема торца M25 pro по рендерам производителя (центры портов 0,243 / 0,473 / 0,731 ширины, замер 19.11 по двум рендерам)
+   и стандартным проёмам (USB-C 8,9 × 3,2 мм, USB-A 13,1 × 5,6 мм); 1 мм = 4 ед. Подсвечен USB-C1 — главный порт */
+.anat .bd{fill:rgba(208,228,253,.03);stroke:rgba(208,228,253,.5);stroke-width:1}
+.anat .sm{stroke:rgba(208,228,253,.22);stroke-width:1;fill:none}
+.anat .br{stroke:rgba(208,228,253,.45);stroke-width:1.2;fill:none}
+.anat .dm{stroke:rgba(208,228,253,.28);stroke-width:1;fill:none}
+/* схема по центру между текстом и цифрами [В 19.11: «схему сделать по центру двух блоков… и текст под аккумом по центру»]:
+   левая колонка — по своему содержимому, правая — прежняя ширина цифр (27,3 % строки), средняя забирает остаток,
+   промежутки равные — центр средней колонки = середина между блоками; корпус в схеме по центру viewBox (220) */
+@media (min-width:861px){
+  .s2{grid-template-columns:minmax(0,max-content) minmax(0,1fr) minmax(0,27.3%)}
+  .anat svg{max-width:440px;margin:0 auto}
+  .s2 p{max-width:316px}  /* коробка абзаца = длине самой длинной строки (312 px), иначе колонка шире видимого текста и центр съезжает на 14 px */
+}
+
+/* шапка: значок поиска [В 19.11: «да, значок поиска»] */
+.srch{width:36px;height:36px;display:grid;place-items:center;background:none;border:0;padding:0;color:#c7d0e4;cursor:pointer;transition:color .2s}
+.srch svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+.srch:hover,.srch:focus-visible{color:#00a1e9}.srch:focus-visible{outline:1px solid #00a1e9;outline-offset:2px}
+
+/* подсветка схемы портов — вариант А; в чипах — только разъёмы, без устройств [В 19.11: «пишу ведь, что не одобрил такой вариант: давай уберём название телефон, планшет — просто USB-C или USB-A и вариант «все три», и сделать компактнее»]. [В 19.11: «вариант А вполне… написать, какой вариант — как вы заряжаете, USB-C + USB-A…;
+   отдельно выделить мощность, сколько будет выдавать, может крупнее»]. Карточки режимов — по образцу Mangomint (Refero a27eec35…:
+   название + маленькая картинка количества), крупная мощность с разбивкой по портам — Chargetrip (Refero 2c20bab9…: тип разъёма + крупные кВт).
+   Данные — m25-pro-specs, таблица комбинаций. */
+.anat .pt{fill:#070d1f;stroke:rgba(208,228,253,.6);stroke-width:1.2;transition:stroke .3s,filter .3s}
+.anat .tg{fill:rgba(208,228,253,.35);transition:fill .3s}
+.anat .ld{stroke:rgba(208,228,253,.3);stroke-width:1;fill:none;transition:stroke .3s}
+.anat .fl{display:none}
+.anat .pn{fill:var(--fg);font:500 10.5px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em;transition:fill .3s}
+.anat .pw{fill:#a9b3c6;font:500 10.5px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.04em;transition:fill .3s,opacity .3s}
+.anat .port.on .pt{stroke:#00a1e9;stroke-width:1.5;filter:drop-shadow(0 0 4px rgba(0,161,233,.85))}
+.anat .port.on .tg{fill:#00a1e9}
+.anat .port.on .ld{stroke:rgba(0,161,233,.6)}
+.anat .port.on .pn,.anat .port.on .pw{fill:#5cc8ff}
+.anat .port:not(.on) .pw{opacity:.45}
+.anat .out{display:flex;flex-direction:column;align-items:center;margin-top:4px}
+.anat .out .ok{color:var(--mut)}
+.anat .ow{display:block;font-weight:500;font-size:clamp(40px,3.8vw,52px);line-height:1;letter-spacing:-.02em;color:#fff;margin-top:0;  /* надпись «Отдаёт сейчас» убрана [В 19.11: «уберём, чтобы место сэкономить и чуть поднять»] */font-variant-numeric:tabular-nums}
+.anat .ow small{font-size:.4em;color:#5cc8ff;font-weight:500;margin-left:8px;letter-spacing:0}
+.anat .ob{display:block;margin-top:8px;color:#a9b3c6;font-size:14px;text-align:center}
+.anat{container-type:inline-size}
+.anat .modes{display:flex;flex-wrap:nowrap;justify-content:center;gap:min(1.5cqw,8px);margin-top:16px}  /* компактные чипы в строку [В 19.11: «сделать компактнее, чтобы не растягивало блок»] */
+.anat .modes button{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;font:inherit;color:#a9b3c6;background:rgba(208,228,253,.02);border:1px solid var(--line);padding:min(2cqw,11px) min(2.2cqw,13px);cursor:pointer;transition:border-color .2s,background .2s,color .2s}
+.anat .modes button:hover{border-color:rgba(208,228,253,.35)}
+.anat .modes button[aria-pressed="true"]{border-color:#00a1e9;background:rgba(0,161,233,.1)}
+.anat .modes button:focus-visible{outline:2px solid #5cc8ff;outline-offset:-2px}  /* рамка фокуса — по самой карточке, без второй рамки снаружи [В 19.11, скриншот «Все три»] */
+.anat .modes button[aria-pressed="true"]{color:#fff}
+.anat .modes .pp{font:500 10px/1.3 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.06em;color:var(--mut)}
+.anat .modes button[aria-pressed="true"] .pp{color:#5cc8ff}
+.anat .gl{display:flex;align-items:center;gap:min(1cqw,5px)}
+/* только значки разъёмов, крупнее, все пять в строку [В 19.11: «убрать название, оставить только иконки разъёмов, чуть крупнее, в одну строчку»]; размер — от ширины колонки */
+.anat .gl s{display:block;width:min(3.6cqw,18px);height:min(1.6cqw,8px);border-radius:9px;border:1.5px solid rgba(208,228,253,.45)}
+.anat .gl s.a{width:min(4.6cqw,23px);height:min(2.3cqw,11px);border-radius:2px}
+.anat .gl s.on{border-color:#00a1e9;background:#00a1e9;box-shadow:0 0 6px rgba(0,161,233,.8)}
+@media (prefers-reduced-motion:reduce){.anat *{transition:none}}
+/* выбор режима — один сегментный блок шириной с корпус на схеме, края совпадают по вертикали; лёгкая окантовка в нашем стиле:
+   тонкая линия со срезами 45° (левый верх, правый низ — как «Где купить» и ступенька «папки»), сегменты через волосяные разделители,
+   выбранный — лёгкая голубая заливка [В 19.11: «выбор сделать меньше и по ширине выровнять со схемой аккумулятора, чтобы по вертикали сходились;
+   окантовку в нашем стиле лёгком; посмотри варианты на Refero»]. Образец сегментов — Linear, выбор темы (Refero 4ee96a78…): одна общая рамка,
+   выбранный сегмент светлее. Ширина корпуса на схеме = 328 из 440 ед. viewBox → 74,545 % ширины svg (svg = min(колонка, 440 px)). */
+.anat .modes{--mw:calc(min(100cqw,440px)*.74545);--c:8px;width:var(--mw);margin:16px auto 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:1px;padding:1px;background:rgba(208,228,253,.2);
+  clip-path:polygon(var(--c) 0,100% 0,100% calc(100% - var(--c)),calc(100% - var(--c)) 100%,0 100%,0 var(--c))}
+.anat .modes button,.anat .modes button[aria-pressed="true"]{display:flex;justify-content:center;align-items:center;border:0;padding:calc(var(--mw)*.03) 0;background:#0b1226;transition:background .2s}
+.anat .modes button:hover{background:#101a33}
+.anat .modes button[aria-pressed="true"]{background:color-mix(in srgb,#00a1e9 16%,#0b1226)}
+.anat .modes button:first-child{clip-path:polygon(7.6px 0,100% 0,100% 100%,0 100%,0 7.6px)}
+.anat .modes button:last-child{clip-path:polygon(0 0,100% 0,100% calc(100% - 7.6px),calc(100% - 7.6px) 100%,0 100%)}
+.anat .modes button:focus-visible{outline:2px solid #5cc8ff;outline-offset:-2px}
+.anat .gl{gap:calc(var(--mw)*.009)}
+.anat .gl s{width:calc(var(--mw)*.04);height:calc(var(--mw)*.018)}
+.anat .gl s.a{width:calc(var(--mw)*.051);height:calc(var(--mw)*.026)}
+/* вкладки моделей кончаются там, где начинается ступенька «папки» 02 (34 % ширины) [В 19.11: «сделать чтобы модели
+   заканчивались на этой линии получается симметрично элементу внизу»]. 100cqw = ширина body = ширина секции 02, поэтому
+   совпадение точное. Вкладкам нужно не меньше 360 px (иначе надписи наезжают): где 34 % ширины минус поле меньше
+   (уже ~1150 и шире ~2050 px), ступенька сама сдвигается к концу вкладок — линия совпадает на любой ширине */
+body{container-type:inline-size}
+@media (min-width:861px){
+  .models ul{gap:0;width:max(360px,calc(34cqw - max(32px,(100cqw - 1376px)/2)))}
+  .s2{--nx:max(34%,calc(max(32px,(100% - 1376px)/2) + 360px));
+    clip-path:polygon(0 0,var(--nx) 0,calc(var(--nx) + 32px) 32px,100% 32px,100% 100%,0 100%)}
+  .models li{flex:1 1 0;min-width:0;padding-right:6px}
+  .models li:last-child{padding-right:0}.models li:last-child::after{right:0}
+  .models li:not(:first-child){margin-left:6px}
+}
+/* телефон: вкладки моделей на всю ширину прямо над стыком — свет ниже и тише */
+@media (max-width:860px){.hb::before{bottom:-22px;height:150px;opacity:.6;
+  -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,.5) 0,#000 60%);mask-image:linear-gradient(90deg,rgba(0,0,0,.5) 0,#000 60%)}}
+
+/* кнопки [В 19.11: «форму кнопки изменить под наш дизайн новый… вариант с заполнением надо взять»; затем: «смотреть видео — вернём круг,
+   где купить — белый текст, а не чёрный; свечение на углах, а не снизу и сверху; анимация при наведении выразительнее»].
+   «Где купить»: срезы 45° (как ступенька «папки» 02), заливка solid из neon-button — но глубже нашего голубого: белый на #00a1e9 — 2,89:1,
+   на #0077c8 → #0066cc — 4,70…5,57:1. Свет — на срезанных углах (#00a1e9 с ореолом); при наведении линии бегут от углов по краю и
+   замыкают рамку, ореол сильнее, по кнопке проходит блик под 45°. Геометрию рамки ставит скрипт (ширина зависит от текста). Класс .bfr, не .fr: .fr — грань заглушки корпуса,
+   её inset box-shadow рисовал на svg прямоугольник — «торчащий кусочек» у среза [В 19.11]. Скорость [В 19.11: «контур линии оч быструю»]: 0,22 с. */
+nav .btn,body.fS nav .btn{--cut:9px;position:relative;border:0;border-radius:0;padding:9px 26px;background:none;color:#fff;font-weight:600;isolation:isolate;cursor:pointer;text-decoration:none}
+nav .btn::before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(135deg,#0077c8,#0066cc);
+  clip-path:polygon(var(--cut) 0,100% 0,100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,0 100%,0 var(--cut))}
+nav .btn::after{content:"";position:absolute;inset:0;z-index:-1;height:auto;width:auto;
+  clip-path:polygon(var(--cut) 0,100% 0,100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,0 100%,0 var(--cut));
+  background:linear-gradient(115deg,transparent 0 38%,rgba(255,255,255,.38) 50%,transparent 62% 100%) no-repeat;background-size:250% 100%;background-position:130% 0;opacity:1}
+nav .btn:hover::after,nav .btn:focus-visible::after{background-position:-30% 0;transition:background-position .45s cubic-bezier(.3,.7,.2,1)}
+nav .btn .bfr{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none;
+  filter:drop-shadow(0 0 2px rgba(0,161,233,.9)) drop-shadow(0 0 6px rgba(0,161,233,.55));transition:filter .2s}
+nav .btn .bfr path{fill:none;stroke:#3fbaf3;stroke-width:1.5;stroke-linecap:butt;stroke-dasharray:var(--i);transition:stroke-dasharray .22s cubic-bezier(.4,0,.2,1)}
+nav .btn:hover .bfr path,nav .btn:focus-visible .bfr path{stroke-dasharray:var(--f)}
+nav .btn:hover .bfr,nav .btn:focus-visible .bfr{filter:drop-shadow(0 0 3px rgba(0,161,233,1)) drop-shadow(0 0 12px rgba(0,161,233,.7))}
+nav .btn:focus-visible{outline:none}
+@media (prefers-reduced-motion:reduce){nav .btn .bfr,nav .btn .bfr path{transition:none}nav .btn:hover::after{transition:none;background-position:130% 0}}
+
+</style></head><body class="fS">
+
+<section class="hb img" id="hero">
+    <svg class="bgS" aria-hidden="true" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="lg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#071f6e"/><stop offset=".38" stop-color="#0a4fd6"/><stop offset=".62" stop-color="#1696ff"/><stop offset=".8" stop-color="#36b9ff"/><stop offset=".93" stop-color="#7fd8ff"/><stop offset="1" stop-color="#b3ebff"/><animateTransform attributeName="gradientTransform" type="translate" values="-.18 .18; .06 -.06; -.18 .18" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1; .45 0 .55 1"/></linearGradient>
+      <filter id="rib" filterUnits="userSpaceOnUse" x="0" y="0" width="1600" height="1000" color-interpolation-filters="sRGB">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="30" result="b"/>
+        <feImage href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='10'><linearGradient id='g'><stop offset='0' stop-color='rgb(0,128,0)'/><stop offset='1' stop-color='rgb(255,128,0)'/></linearGradient><rect width='40' height='10' fill='url(%23g)'/></svg>" x="0" y="0" width="40" height="10" preserveAspectRatio="none" result="m"/>
+        <feTile in="m" result="t"/>
+        <feDisplacementMap in="b" in2="t" scale="72" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <radialGradient id="spill" cx=".78" cy=".42" r=".55"><stop offset="0" stop-color="#0d6cff" stop-opacity=".22"/><stop offset="1" stop-color="#0d6cff" stop-opacity="0"/></radialGradient>
+    </defs>
+    <rect width="1600" height="1000" fill="url(#spill)"/>
+    <g class="shift"><g class="arc" style="filter:blur(60px)" opacity=".55"><path d="M560 1140 C 930 1050, 1300 880, 1450 230" stroke="#0b5fe0" stroke-width="260" fill="none" stroke-linecap="round"/></g>
+    <g filter="url(#rib)"><g class="arc">
+      <path d="M560 1140 C 930 1050, 1300 880, 1450 230" stroke="url(#lg)" stroke-width="190" fill="none" stroke-linecap="round"/>
+      <ellipse cx="1430" cy="430" rx="80" ry="240" fill="#8fdcff" opacity=".35"><animate attributeName="opacity" values=".22;.45;.22" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1; .45 0 .55 1"/><animate attributeName="cy" values="520;380;520" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1; .45 0 .55 1"/></ellipse>
+    </g></g></g>
+  </svg>
+  <nav><a class="logo" href="#" aria-label="Movespeed — на главную"><svg viewBox="0 0 266.85 26.35" fill="currentColor" aria-hidden="true"><path d="M96.64,3.31v22.85h22.38v-4.6h-15.75v-6.31h0v-4.56h0v-6.14h15.75V0h-18.05c-2.39,0-4.32,1.48-4.32,3.31Z"/> <path d="M206.84,4.56V0h-18.05c-2.39,0-4.32,1.48-4.32,3.31v22.85h22.38v-4.6h-15.75v-1.69h0V6.07h0v-1.52h15.75Z"/> <path d="M235.7,4.56V0h-18.05c-2.39,0-4.32,1.48-4.32,3.31v22.85h22.38v-4.6h-15.74v-6.31h0v-4.56h0v-6.14h15.74Z"/> <path d="M248.82,21.61V0h-3.72c-1.61,0-2.92,1.31-2.92,2.92v23.25h6.63v-4.56Z"/> <polygon points="15.41 14.15 6.54 0 0 0 0 26.16 6.63 26.16 6.63 10.91 13.17 20.83 17.65 20.83 21.34 15.19 21.34 4.64 15.41 14.15"/> <polygon points="30.77 0 24.24 0 24.23 0 24.23 26.16 30.77 26.16 30.77 0"/> <path d="M45.79,20.43c-1.29-1.1-1.62-2.31-1.62-7.35s.33-6.25,1.62-7.35c.7-.62,1.73-1.05,2.93-1.25V-.15c-3.2.22-5.75,1.19-7.85,2.8-3.44,2.65-3.34,5.92-3.34,10.44s-.1,7.79,3.34,10.44c2.09,1.61,4.65,2.58,7.85,2.8v-4.64c-1.21-.2-2.23-.63-2.93-1.24Z"/> <path d="M59.25,2.65c-2.06-1.58-4.52-2.55-7.63-2.79v4.66c1.11.21,2.05.63,2.72,1.22,1.29,1.1,1.67,2.31,1.67,7.35s-.38,6.25-1.67,7.35c-.66.59-1.6,1.01-2.72,1.22v4.66c3.11-.24,5.57-1.2,7.63-2.79,3.44-2.65,3.39-5.92,3.39-10.44s.05-7.79-3.39-10.44Z"/> <rect x="106.16" y="10.69" width="10.52" height="4.56"/> <path d="M167.68,0h-10.25c-1.61,0-2.92,1.31-2.92,2.92v23.24h6.63V4.56h6.2c3.01,0,4.91,1.47,4.91,3.6s-1.91,3.56-4.91,3.56h-3.31v4.59h3.64c7.01,0,11.21-3.71,11.21-8.16S174.69,0,167.68,0Z"/> <polygon points="204.5 10.69 193.96 10.69 193.96 10.81 193.96 14.34 193.96 14.82 193.96 15.25 204.5 15.25 204.5 10.69"/> <polygon points="222.84 10.69 222.84 10.81 222.84 14.34 222.84 14.82 222.84 15.25 233.36 15.25 233.36 10.69 222.84 10.69"/> <path d="M263.41,2.5C261.17.77,257.98,0,254.44,0h-2.75v4.56h2.13c2.29,0,3.82.55,4.96,1.62,1.24,1.18,1.43,2.83,1.43,6.8s-.19,5.84-1.43,7.02c-1.14,1.07-2.67,1.62-4.96,1.62h-2.13v4.56h2.75c3.53,0,6.73-.77,8.97-2.5,3.82-2.94,3.43-6.76,3.43-10.69s.38-7.53-3.43-10.47Z"/> <path d="M138.96.68v3.58c1.69.09,3.51.46,5.07,1.77l3.67-3.2c-2.36-2.01-5.1-2.9-8.74-3.03v.87Z"/> <path d="M136.07,25.86v-4.1c-2.19-.18-4.19-.78-5.74-2.14l-3.76,3.31c2.62,2.34,5.65,3.25,9.49,3.42v-.49Z"/> <path d="M148.45,18.45c0-2.31-.71-4.23-2.3-5.55-1.25-1.03-2.96-1.69-5.68-2.02l-3.51-.44c-1.21-.15-2.17-.55-2.76-1.03-.63-.52-.88-1.21-.88-1.87,0-1.39.9-2.59,2.73-3.08V-.1c-5.21.62-8.33,3.66-8.33,7.81,0,2.21.71,3.9,2.13,5.15,1.34,1.14,3.22,1.84,5.76,2.17l3.59.44c1.38.18,2.05.44,2.63.92.63.51.92,1.29.92,2.2,0,1.77-1.33,2.85-3.82,3.14v4.58c5.46-.44,9.49-3.22,9.49-7.87Z"/> <polygon points="81.36 15.7 81.71 16.58 81.84 16.91 82.23 17.89 82.47 18.49 82.55 18.7 82.66 18.98 83.49 21.05 92.54 0 85.63 0 80.35 13.18 80.96 14.71 81.36 15.7"/> <polygon points="79.87 19.77 79.58 19.05 78.68 16.79 76.97 12.5 74.45 6.17 74.28 5.74 74.27 5.71 74.04 5.14 71.98 0 65.11 0 76.32 26.16 81.28 26.16 81.87 24.8 81.26 23.28 79.87 19.77"/></svg></a><span class="item">Аккумуляторы</span><span class="item">Зарядные устройства</span><span class="item">Поддержка</span><span class="sp"></span><button class="srch" type="button" aria-label="Поиск"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6"/><path d="M13 13l5 5"/></svg></button><a class="btn" href="#">Где купить<svg class="bfr" aria-hidden="true"><path/><path/></svg></a></nav>
+  <div class="lead">
+    <div class="eb mono"><span>Официальный<br>поставщик в РФ</span><span class="rule"></span><span>/ 01</span></div>
+    <h1><span>Внешние</span><span>аккумуляторы</span><span class="brand">Movespeed</span></h1>
+    <p class="sub">Зарядит <span class="typed"></span></p>
+    <button class="watch" type="button"><i></i><span>Смотреть видео<small class="wm">M25 pro</small></span></button>
+  </div>
+  <div class="models"><div class="k mono">/ Модели</div><ul class="mono"><li class="cur">M25 pro</li><li>S20 Plus</li><li>MSP17 EU</li><li>MSP07</li></ul></div>
+  <div class="edge mono" aria-hidden="true"><span>Листайте —<br>характеристики</span><i></i></div>
+  <div class="pwrap"><img class="pimg" src="assets/m25-pro/m25pro-hero.webp" width="1509" height="1720" alt="Внешний аккумулятор Movespeed M25 pro на ноутбуке, из портов выходят два кабеля USB-C" decoding="async"></div>
+</section>
+<section class="s2" id="s2">
+  <div>
+    <div class="eb mono"><span><span class="acc">/ 02</span>&nbsp;&nbsp;Характеристики</span></div>
+    <h2>M25 pro</h2>
+    <div class="full mono">YSPBM25 pro · Powerbank</div>
+    <p>140&nbsp;Вт с&nbsp;одного USB-C по&nbsp;Power Delivery&nbsp;3.1&nbsp;— хватит ноутбуку. Заряжает три устройства сразу, на&nbsp;дисплее&nbsp;— напряжение, ток и&nbsp;остаток заряда. Сам заряжается до&nbsp;2&nbsp;часов.</p>
+    <a class="more" href="#s2">Все характеристики <span>→</span></a>
+  </div>
+  <div class="anat">
+    <svg viewBox="0 0 440 236" role="img" aria-label="Торец M25 pro: слева USB-C1 — 140 Вт, вход 65 Вт; в центре USB-C2 — 45 Вт; справа USB-A — 22,5 Вт">
+      <rect class="bd" x="56" y="74" width="328" height="104" rx="24"/>
+      <path class="sm" d="M57 94H383"/>
+      <path class="br" d="M79.0 110.8V102.8H87.0M353.0 102.8H361.0V110.8M361.0 160.4V168.4H353.0M87.0 168.4H79.0V160.4"/>
+      <g class="port on" data-p="c1"><path class="ld" d="M135.7 52V124.6"/><path class="fl" d="M135.7 124.6V52"/><rect class="pt" x="117.9" y="127.6" width="35.6" height="12.8" rx="6.4"/><rect class="tg" x="122.5" y="132.6" width="26.4" height="2.8" rx="1.4"/><text class="pn" x="135.7" y="14" text-anchor="middle">USB-C1</text><text class="pw" x="135.7" y="30" text-anchor="middle" data-max="140 Вт">140 Вт</text><text class="pw in" x="135.7" y="43" text-anchor="middle">вход 65 Вт</text></g><g class="port" data-p="c2"><path class="ld" d="M211.1 52V124.6"/><path class="fl" d="M211.1 124.6V52"/><rect class="pt" x="193.3" y="127.6" width="35.6" height="12.8" rx="6.4"/><rect class="tg" x="197.9" y="132.6" width="26.4" height="2.8" rx="1.4"/><text class="pn" x="211.1" y="14" text-anchor="middle">USB-C2</text><text class="pw" x="211.1" y="30" text-anchor="middle" data-max="45 Вт">45 Вт</text></g><g class="port" data-p="a"><path class="ld" d="M295.8 52V119.8"/><path class="fl" d="M295.8 119.8V52"/><rect class="pt" x="269.6" y="122.8" width="52.4" height="22.4" rx="1.6"/><rect class="tg" x="273.8" y="126.0" width="44.0" height="7.2" rx="0.8"/><text class="pn" x="295.8" y="14" text-anchor="middle">USB-A</text><text class="pw" x="295.8" y="30" text-anchor="middle" data-max="22,5 Вт">22,5 Вт</text></g>
+      <path class="dm" d="M56 195v10M384 195v10M56 200H384"/><text class="dimt" x="220.0" y="216" text-anchor="middle">82 мм</text>
+      <path class="dm" d="M397 74h10M397 178h10M402 74V178"/><text class="dimt" x="410" y="130.0">26</text>
+    </svg>
+    <div class="out" aria-live="polite"><b class="ow"><span class="num">140</span><small>Вт</small></b><span class="ob">USB-C1 — 140 Вт</span></div>
+    <div class="modes" role="group" aria-label="Как вы заряжаете">
+      <button type="button" data-m="c1" aria-pressed="true" aria-label="USB-C1" title="USB-C1"><i class="gl" aria-hidden="true"><s class="c on"></s><s class="c"></s><s class="a"></s></i></button>
+      <button type="button" data-m="c1 c2" aria-pressed="false" aria-label="USB-C1 и USB-C2" title="USB-C1 и USB-C2"><i class="gl" aria-hidden="true"><s class="c on"></s><s class="c on"></s><s class="a"></s></i></button>
+      <button type="button" data-m="c1 a" aria-pressed="false" aria-label="USB-C1 и USB-A" title="USB-C1 и USB-A"><i class="gl" aria-hidden="true"><s class="c on"></s><s class="c"></s><s class="a on"></s></i></button>
+      <button type="button" data-m="c2 a" aria-pressed="false" aria-label="USB-C2 и USB-A" title="USB-C2 и USB-A"><i class="gl" aria-hidden="true"><s class="c"></s><s class="c on"></s><s class="a on"></s></i></button>
+      <button type="button" data-m="c1 c2 a" aria-pressed="false" aria-label="Все три порта" title="Все три порта"><i class="gl" aria-hidden="true"><s class="c on"></s><s class="c on"></s><s class="a on"></s></i></button>
+    </div>
+  </div>
+  <ul class="stats">
+    <li><b>25 000<small>мАч</small></b><span>Ёмкость</span></li>
+    <li><b>145<small>Вт</small></b><span>Суммарно; один порт — до 140 Вт</span></li>
+    <li><b>92,5<small>Вт·ч</small></b><span>Можно в самолёт — лимит 100 Вт·ч</span></li>
+    <li><b>3<small>порта</small></b><span>2 × USB-C, USB-A</span></li>
+  </ul>
+</section>
+<div class="tail"></div>
+<dialog class="vd"><div class="h mono"><span>Видео · <span class="vm">M25 pro</span></span><button class="x" type="button" aria-label="Закрыть">✕</button></div><div class="ph">Видео модели — скоро</div></dialog>
+
+
+<script>
+(function(){
+  /* печать подзаголовка; местоимение согласовано с существительным [В 19.11: «ваш» с «наушники/часы» по-русски неверно] —
+     стирается только до общего начала со следующей фразой («ваш телефон» → «ваш» → «ваши наушники») */
+  const el=document.querySelector('.typed'),W=['ваш ноутбук','ваш телефон','ваши наушники','ваши часы'];let w=0,c=0,del=false;
+  const keep=(a,b)=>{let i=0;while(i<a.length&&i<b.length&&a[i]===b[i])i++;return i};
+  const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(rm){el.textContent=W[0]}else(function tick(){const s=W[w];if(!del){c++;el.textContent=s.slice(0,c);if(c===s.length){del=true;return setTimeout(tick,1600)}}
+    else{c--;el.textContent=s.slice(0,c);const n=(w+1)%W.length;if(c<=keep(s,W[n])){del=false;w=n}}setTimeout(tick,del?45:90)})();
+    /* телефон: кадр фона прижат вправо, иначе свет уходит за край */
+  const bgS=document.querySelector('.bgS');if(matchMedia('(prefers-reduced-motion: reduce)').matches)bgS.pauseAnimations();const fitBg=()=>bgS.setAttribute('preserveAspectRatio',innerWidth<=860?'xMaxYMid slice':'xMidYMid slice');fitBg();addEventListener('resize',fitBg);
+  const hero=document.getElementById('hero');
+  /* модели: смена текущей по клику (стенд: меняет только имя в секции 02) */
+  const name=()=>document.querySelector('.models li.cur').textContent;
+  const IMG={'M25 pro':'assets/m25-pro/m25pro-hero.webp'};  /* картинки моделей; у остальных пока пусто — 3D и заглушка удалены [В 19.11] */
+  document.querySelectorAll('.models li').forEach(li=>li.onclick=()=>{if(li.classList.contains('cur'))return;document.querySelectorAll('.models li').forEach(x=>x.classList.toggle('cur',x===li));
+    const m=name();document.querySelector('.s2 h2').textContent=m;document.querySelector('.wm').textContent=m;
+    hero.classList.toggle('img',m in IMG);if(m in IMG)document.querySelector('.pimg').src=IMG[m]});
+  const dlg=document.querySelector('.vd');document.querySelector('.watch').onclick=()=>{dlg.querySelector('.vm').textContent=name();dlg.showModal()};
+  dlg.querySelector('.x').onclick=()=>dlg.close();dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+})();
+
+/* рамка «Где купить»: две ломаные от средины каждой стороны через срезанный угол; в покое видны 12 px по обе стороны среза,
+   при наведении — вся ломаная (рамка замыкается) */
+(function(){const b=document.querySelector('nav .btn'),sv=b.querySelector('.bfr'),[pa,pb]=sv.querySelectorAll('path'),c=9;
+  const fit=()=>{const W=b.offsetWidth,H=b.offsetHeight;sv.setAttribute('viewBox',`0 0 ${W} ${H}`);
+    const A=`M0 ${H} V${c} L${c} 0 H${W}`,B=`M${W} 0 V${H-c} L${W-c} ${H} H0`;pa.setAttribute('d',A);pb.setAttribute('d',B);
+    const L=(H-c)+c*Math.SQRT2+(W-c),d0=(H-c)+c*Math.SQRT2/2,s=c*Math.SQRT2+24;
+    for(const p of[pa,pb]){p.style.setProperty('--i',`0 ${d0-s/2}px ${s}px ${L}px`);p.style.setProperty('--f',`0 0px ${L}px ${L}px`)}};
+  fit();addEventListener('resize',fit);document.fonts&&document.fonts.ready.then(fit)})();
+
+/* подсветка схемы портов, вариант А: карточка режима → занятые порты горят, подписи и крупная цифра — мощность в этом режиме */
+(function(){const s2=document.querySelector('.s2'),ports=[...s2.querySelectorAll('.anat .port')],mb=[...s2.querySelectorAll('.modes button')];
+  const num=s2.querySelector('.ow .num'),ob=s2.querySelector('.ob');
+  /* m25-pro-specs-2026-11-19.md, таблица комбинаций */
+  const M={'c1':[{c1:'140 Вт'},140,'USB-C1 — 140 Вт'],'c1 c2':[{c1:'100 Вт',c2:'45 Вт'},145,'USB-C1 100 Вт + USB-C2 45 Вт'],
+    'c1 a':[{c1:'100 Вт',a:'22,5 Вт'},122.5,'USB-C1 100 Вт + USB-A 22,5 Вт'],'c2 a':[{c2:'15 Вт',a:'на двоих'},15,'USB-C2 и USB-A — 15 Вт на двоих'],
+    'c1 c2 a':[{c1:'100 Вт',c2:'15 Вт',a:'на двоих'},115,'USB-C1 100 Вт + USB-C2 и USB-A — 15 Вт на двоих']};
+  const fmt=v=>(Math.round(v*10)/10).toString().replace('.',',');const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cur=140,raf=0;
+  function count(to){cancelAnimationFrame(raf);if(rm){cur=to;num.textContent=fmt(to);return}const from=cur,t0=performance.now(),D=380;
+    const step=t=>{const k=Math.min(1,(t-t0)/D),e=1-Math.pow(1-k,3),v=from+(to-from)*e;num.textContent=k<1?String(Math.round(v)):fmt(to);cur=k<1?v:to;if(k<1)raf=requestAnimationFrame(step)};
+    raf=requestAnimationFrame(step)}
+  function mode(m){const [v,total,txt]=M[m];const ids=m.split(' ');
+    ports.forEach(g=>{g.classList.toggle('on',ids.includes(g.dataset.p));const t=g.querySelector('.pw:not(.in)');t.textContent=v[g.dataset.p]||t.dataset.max});
+    ob.textContent=txt;count(total);mb.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.m===m)))}
+  mb.forEach(b=>b.onclick=()=>mode(b.dataset.m))})();
+</script>
+
+</body></html>
