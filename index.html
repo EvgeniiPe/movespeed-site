@@ -51,7 +51,7 @@ h1 .brand{color:var(--acc)}
 .s2 p{color:#b9c3d8;max-width:340px;margin:18px 0 22px}
 .s2 .more{color:var(--fg);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:4px}
 .s2 .more span{color:var(--acc)}
-.anat{position:relative;align-self:stretch;min-height:240px}
+.anat{position:relative;align-self:stretch;min-height:240px;display:flex;flex-direction:column;justify-content:center}  /* схема — по центру колонки по высоте [В 19.11: «может опустить чуть ниже, по центру блока сделать»] */
 .anat svg{width:100%;height:auto;display:block;overflow:visible}
 .anat .note{fill:#a9b3c6;font:500 10.5px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase}
 .anat .dimt{fill:var(--mut);font:500 10px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.06em}
@@ -81,11 +81,39 @@ h1 .brand{color:var(--acc)}
    производителя с вырезанным фоном (ноутбук, аккумулятор, кабели, свечение). У модели без картинки — прежняя заглушка-корпус. */
 .pwrap{display:none;position:absolute;left:44%;right:var(--pad);top:0;bottom:0;pointer-events:none;z-index:2}  /* правый край — по колонке контента: на широком экране картинка не уходит под «Листайте» */
 .hb.img .pwrap{display:block}
+/* смена модели [В 25.11: «теперь плавный переход анимации при переключении модели»]: кадр уходит (200 мс, ускоряясь) и сдвигается
+   на 24 px против направления листания; новый кадр — с другой стороны, приходит дольше и с замедлением (500 мс). Двигаем обёртку,
+   а не .pimg — у .pimg своя посадка через transform по модели. Перебивание: transition стартует от текущего значения */
+.pwrap{transition:opacity .42s cubic-bezier(.2,.7,.2,1),transform .5s cubic-bezier(.2,.7,.2,1)}
+.pwrap.out{opacity:0;transform:translateX(var(--dx,0));transition-duration:.2s;transition-timing-function:cubic-bezier(.4,0,1,1)}
+.pwrap.pre{transition:none}
+@media (prefers-reduced-motion:reduce){.pwrap.out{transform:none}}
 /* центр аккумулятора (61 % ширины кадра) — там же, где стояла заглушка-корпус; верх гаснет, как гасли нарисованные кабели */
 .pimg{position:absolute;left:50%;transform:translateX(-61%);bottom:calc(clamp(260px,60vh,620px)*-.3);height:calc(clamp(260px,60vh,620px)*1.75);width:auto;max-width:none;
   /* гаснут верх (кабели уходят вверх) и правый край (лучи у производителя упираются в край кадра) */
   -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 14%),linear-gradient(to left,transparent 0,#000 14%);-webkit-mask-composite:source-in;
   mask-image:linear-gradient(to bottom,transparent 0,#000 14%),linear-gradient(to left,transparent 0,#000 14%);mask-composite:intersect}
+/* посадка по модели [В 24.11]: у M25 pro и S20 Plus в кадре ноутбук — масштаб 1; MSP17 и MSP07 сняты крупно без ноутбука — меньше, от нижнего края (низ по-прежнему заходит в 02) */
+.pimg{transform-origin:50% 100%}
+.hb[data-m="msp17"] .pimg{scale:.62}  /* телефон; на десктопе — ниже, «MSP17 EU — по центру» */
+.hb[data-m="msp07"] .pimg{scale:.68}  /* телефон; на десктопе — ниже, «теперь так же msp07» */
+/* S20 Plus [В 24.11: «изображение не должно быть чуть прозрачным… справа изображение должно примыкать к краю справа и поднять ещё немного
+   изображение аккумулятор»]: кадр без маски (сам файл непрозрачен); ноутбук в кадре обрезан правым краем — этот край ставим на правый
+   край экрана; на десктопе кадр поднят на 48 px — аккумулятор целиком над «папкой» 02 */
+.hb[data-m="s20"] .pimg{left:auto;right:0;transform:none;-webkit-mask-image:none;mask-image:none}
+@media (min-width:861px){.hb[data-m="s20"] .pwrap{right:0}.hb[data-m="s20"] .pimg{bottom:80px}}  /* [В 25.11: «ещё нужно поднять чуть изображение у s20» → «ещё чуть поднимаем»] — +40, +40 px */  /* обёртка тоже до края: --pad внутри неё считается от её ширины */
+/* MSP17 EU [В 25.11: «след аккумулятор убрать прозрачность и тут по центру и крупнее» + скрин с перекрестьем]: корпус без маски;
+   гаснут только последние 3,5 % высоты справа от корпуса — там кабель обрезан краем кадра производителя (корпус кончается выше и левее);
+   на десктопе — по центру правой колонки по обеим осям, ширина min(72vh, 92 % колонки) вместо прежних 62 % от нижнего края */
+.hb[data-m="msp17"] .pimg{
+  -webkit-mask-image:linear-gradient(to top,transparent 0,#000 3.5%),linear-gradient(to right,#000 63%,transparent 63%);-webkit-mask-composite:source-over;
+  mask-image:linear-gradient(to top,transparent 0,#000 3.5%),linear-gradient(to right,#000 63%,transparent 63%);mask-composite:add}
+@media (min-width:861px){.hb[data-m="msp17"] .pimg{scale:none;top:50%;bottom:auto;left:50%;transform:translate(-42%,-50%);width:min(65vh,83%);height:auto}}  /* [В 25.11: «чуть меньше давай сделаем фото»] — было min(72vh,92%), −10 % */
+/* центр по горизонтали чуть правее середины колонки (−42 %, а не −50 %): при −50 % левый кабель на 1920 ложился на «Ы» заголовка */
+/* MSP07 [В 25.11: «теперь так же msp07»] — как MSP17: без маски (край кадра нигде не режет товар: альфа по краям ≤ 81 — только тень),
+   на десктопе по центру колонки по обеим осям; кадр высокий — меряем высотой, ≈ высоте кадра MSP17 (на 1440 ~615 px) */
+.hb[data-m="msp07"] .pimg{-webkit-mask-image:none;mask-image:none}
+@media (min-width:861px){.hb[data-m="msp07"] .pimg{scale:none;top:50%;bottom:auto;left:50%;transform:translate(-50%,-50%);height:min(68vh,140%);width:auto}}
 @media (max-width:860px){
   .pwrap{position:relative;grid-row:3;left:auto;right:auto;top:auto;bottom:auto;height:420px;margin:0 calc(var(--pad)*-1)}
   .pimg{bottom:0;height:440px;  /* низ — в своей строке: не наезжает на вкладки моделей; низ тоже гаснет */
@@ -208,6 +236,27 @@ body.fS .edge span{background:rgba(6,10,23,.82);padding:2px 0;color:#c7d0e4;text
 .anat .ow small{font-size:.4em;color:#5cc8ff;font-weight:500;margin-left:8px;letter-spacing:0}
 .anat .ob{display:block;margin-top:8px;color:#a9b3c6;font-size:14px;text-align:center}
 .anat{container-type:inline-size}
+/* заглушка схемы у модели без рендера торца — пунктир и подпись серым, как .tbd в серой главной */
+/* смена текстов 02 [В 25.11: «во 2 секции нужно сделать текста к моделям при смене чтобы тоже менялось» → «Плавная смена текста»]:
+   в такт картинке — уход 180 мс вниз на 8 px и в прозрачность, приход 380/450 мс с замедлением, лесенкой по 40 мс (заголовок → схема → цифры) */
+.s2 .swp{transition:opacity .38s cubic-bezier(.2,.7,.2,1),transform .45s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*40ms)}
+.s2.out .swp{opacity:0;transform:translateY(8px);transition-duration:.18s;transition-timing-function:cubic-bezier(.4,0,1,1);transition-delay:0s}
+@media (prefers-reduced-motion:reduce){.s2.out .swp{transform:none}}
+.anat .ph{fill:none;stroke:rgba(208,228,253,.28);stroke-width:1;stroke-dasharray:4 4}
+.anat .pht{fill:var(--mut);font:500 10.5px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.04em}
+/* схемы S20 Plus, MSP17 EU, MSP07 [В 25.11: «да, встраивай как по фото»]: устройства-соседи тише корпуса; кабель и контакт — синие со свечением, как порты M25 */
+.anat .dv{fill:none;stroke:rgba(208,228,253,.24);stroke-width:1}
+.anat .cb{fill:none;stroke:rgba(208,228,253,.5);stroke-width:1.5;stroke-linecap:round}
+.anat .brd{fill:none;stroke:rgba(232,246,255,.55);stroke-width:1;stroke-dasharray:1.4 2.6;stroke-linecap:round}
+.anat .port.on .cb{stroke:#00a1e9;filter:drop-shadow(0 0 4px rgba(0,161,233,.85))}
+.anat .port.on circle.pt{fill:none}
+.anat .port.on .dm{stroke:rgba(0,161,233,.6)}
+.anat .port.on .dimt{fill:#5cc8ff}
+/* мини-кнопка «проиграть заново» — у правого нижнего угла схемы [В 25.11: «может мини кнопку сделать проиграть анимацию заново»] */
+.anat .sv{position:relative;width:100%;max-width:440px;margin:0 auto}
+.anat .rp{position:absolute;right:0;bottom:0;width:30px;height:30px;display:grid;place-items:center;padding:0;border:1px solid var(--line);background:rgba(11,18,38,.6);color:var(--mut);font:14px/1 "JetBrains Mono",monospace;cursor:pointer;transition:color .2s,border-color .2s}
+.anat .rp:hover{color:var(--fg);border-color:rgba(208,228,253,.35)}
+.anat .rp:focus-visible{outline:2px solid #5cc8ff;outline-offset:2px}
 .anat .modes{display:flex;flex-wrap:nowrap;justify-content:center;gap:min(1.5cqw,8px);margin-top:16px}  /* компактные чипы в строку [В 19.11: «сделать компактнее, чтобы не растягивало блок»] */
 .anat .modes button{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;font:inherit;color:#a9b3c6;background:rgba(208,228,253,.02);border:1px solid var(--line);padding:min(2cqw,11px) min(2.2cqw,13px);cursor:pointer;transition:border-color .2s,background .2s,color .2s}
 .anat .modes button:hover{border-color:rgba(208,228,253,.35)}
@@ -279,7 +328,7 @@ nav .btn:focus-visible{outline:none}
 
 </style></head><body class="fM">
 
-<section class="hb img" id="hero">
+<section class="hb img" id="hero" data-m="m25">
   <div class="bgB" aria-hidden="true"><video src="assets/bg/hero-bg-B.mp4" autoplay loop muted playsinline></video></div>
   <svg class="bgS" aria-hidden="true" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
     <defs>
@@ -323,18 +372,11 @@ nav .btn:focus-visible{outline:none}
       <rect class="bd" x="56" y="74" width="328" height="104" rx="24"/>
       <path class="sm" d="M57 94H383"/>
       <path class="br" d="M79.0 110.8V102.8H87.0M353.0 102.8H361.0V110.8M361.0 160.4V168.4H353.0M87.0 168.4H79.0V160.4"/>
-      <g class="port on" data-p="c1"><path class="ld" d="M135.7 52V124.6"/><path class="fl" d="M135.7 124.6V52"/><rect class="pt" x="117.9" y="127.6" width="35.6" height="12.8" rx="6.4"/><rect class="tg" x="122.5" y="132.6" width="26.4" height="2.8" rx="1.4"/><text class="pn" x="135.7" y="14" text-anchor="middle">USB-C1</text><text class="pw" x="135.7" y="30" text-anchor="middle" data-max="140 Вт">140 Вт</text><text class="pw in" x="135.7" y="43" text-anchor="middle">вход 65 Вт</text></g><g class="port" data-p="c2"><path class="ld" d="M211.1 52V124.6"/><path class="fl" d="M211.1 124.6V52"/><rect class="pt" x="193.3" y="127.6" width="35.6" height="12.8" rx="6.4"/><rect class="tg" x="197.9" y="132.6" width="26.4" height="2.8" rx="1.4"/><text class="pn" x="211.1" y="14" text-anchor="middle">USB-C2</text><text class="pw" x="211.1" y="30" text-anchor="middle" data-max="45 Вт">45 Вт</text></g><g class="port" data-p="a"><path class="ld" d="M295.8 52V119.8"/><path class="fl" d="M295.8 119.8V52"/><rect class="pt" x="269.6" y="122.8" width="52.4" height="22.4" rx="1.6"/><rect class="tg" x="273.8" y="126.0" width="44.0" height="7.2" rx="0.8"/><text class="pn" x="295.8" y="14" text-anchor="middle">USB-A</text><text class="pw" x="295.8" y="30" text-anchor="middle" data-max="22,5 Вт">22,5 Вт</text></g>
+      <g class="port on" data-p="c1"><path class="ld" d="M135.7 52V124.6"/><path class="fl" d="M135.7 124.6V52"/><rect class="pt" x="117.9" y="127.6" width="35.6" height="12.8" rx="6.4"/><rect class="tg" x="122.5" y="132.6" width="26.4" height="2.8" rx="1.4"/><text class="pn" x="135.7" y="14" text-anchor="middle">USB-C1</text><text class="pw" x="135.7" y="30" text-anchor="middle" data-max="140 Вт">140 Вт</text><text class="pw in" x="135.7" y="43" text-anchor="middle">вход 65 Вт</text></g><g class="port on" data-p="c2"><path class="ld" d="M211.1 52V124.6"/><path class="fl" d="M211.1 124.6V52"/><rect class="pt" x="193.3" y="127.6" width="35.6" height="12.8" rx="6.4"/><rect class="tg" x="197.9" y="132.6" width="26.4" height="2.8" rx="1.4"/><text class="pn" x="211.1" y="14" text-anchor="middle">USB-C2</text><text class="pw" x="211.1" y="30" text-anchor="middle" data-max="45 Вт">45 Вт</text></g><g class="port on" data-p="a"><path class="ld" d="M295.8 52V119.8"/><path class="fl" d="M295.8 119.8V52"/><rect class="pt" x="269.6" y="122.8" width="52.4" height="22.4" rx="1.6"/><rect class="tg" x="273.8" y="126.0" width="44.0" height="7.2" rx="0.8"/><text class="pn" x="295.8" y="14" text-anchor="middle">USB-A</text><text class="pw" x="295.8" y="30" text-anchor="middle" data-max="22,5 Вт">22,5 Вт</text></g>
       <path class="dm" d="M56 195v10M384 195v10M56 200H384"/><text class="dimt" x="220.0" y="216" text-anchor="middle">82 мм</text>
       <path class="dm" d="M397 74h10M397 178h10M402 74V178"/><text class="dimt" x="410" y="130.0">26</text>
     </svg>
-    <div class="out" aria-live="polite"><b class="ow"><span class="num">140</span><small>Вт</small></b><span class="ob">USB-C1 — 140 Вт</span></div>
-    <div class="modes" role="group" aria-label="Как вы заряжаете">
-      <button type="button" data-m="c1" aria-pressed="true" aria-label="USB-C1" title="USB-C1"><i class="gl" aria-hidden="true"><s class="c on"></s><s class="c"></s><s class="a"></s></i></button>
-      <button type="button" data-m="c1 c2" aria-pressed="false" aria-label="USB-C1 и USB-C2" title="USB-C1 и USB-C2"><i class="gl" aria-hidden="true"><s class="c on"></s><s class="c on"></s><s class="a"></s></i></button>
-      <button type="button" data-m="c1 a" aria-pressed="false" aria-label="USB-C1 и USB-A" title="USB-C1 и USB-A"><i class="gl" aria-hidden="true"><s class="c on"></s><s class="c"></s><s class="a on"></s></i></button>
-      <button type="button" data-m="c2 a" aria-pressed="false" aria-label="USB-C2 и USB-A" title="USB-C2 и USB-A"><i class="gl" aria-hidden="true"><s class="c"></s><s class="c on"></s><s class="a on"></s></i></button>
-      <button type="button" data-m="c1 c2 a" aria-pressed="false" aria-label="Все три порта" title="Все три порта"><i class="gl" aria-hidden="true"><s class="c on"></s><s class="c on"></s><s class="a on"></s></i></button>
-    </div>
+    <!-- подписи мощности над портами возвращены [В 19.11: «ты убрал про мощность на разъёмах USB-C1, USB-C2, USB-A — верни»]; крупная цифра и выбор режима убраны [В 19.11: «просто покажем разъёмы… уберём про мощность и что и какой из них выдаёт, потом отдельно сделаем страницу под сам товар»]; прежний вид — коммит e8ea5ae -->
   </div>
   <ul class="stats">
     <li><b>25 000<small>мАч</small></b><span>Ёмкость</span></li>
@@ -343,6 +385,61 @@ nav .btn:focus-visible{outline:none}
     <li><b>3<small>порта</small></b><span>2 × USB-C, USB-A</span></li>
   </ul>
 </section>
+<!-- Схемы 02 у S20 Plus, MSP17 EU, MSP07 вместо заглушки «нужен рендер торца» [В 25.11: «да, встраивай как по фото»]. Источник — docs/analysis/anat-design-2026-11-25.html
+     (режим «по фото»); путь решений — STARTER-next-chat.md, «СЛЕДУЮЩАЯ ЗАДАЧА». Язык — схема M25 pro: .bd/.sm/.pt/.tg/.ld/.pn/.pw/.dm, синий — главное. -->
+<template id="sc-S20-Plus">
+<svg viewBox="0 0 440 236" role="img" aria-label="S20 Plus сзади: кольцо магнита — без провода Qi 15 Вт; встроенный кабель USB-C — 45 Вт, до 20 В">
+  <rect class="bd" x="105" y="60" width="230" height="150" rx="18"/>
+  <rect class="sm dt" x="109.5" y="64.5" width="221" height="141" rx="14"/>
+  <rect class="pt dt" x="129" y="209.5" width="12" height="4" rx="1.5"/>
+  <rect class="pt" x="204" y="130.5" width="33" height="9" rx="4.5"/>
+  <rect class="sm dt" x="209" y="133.5" width="23" height="3" rx="1.5"/>
+  <g class="port on">
+    <path class="cb" style="stroke-width:3.2" data-a="draw" data-t="520" data-d="560" d="M105 191C88 193 62 208 32 208.5A19 19 0 0 1 30 170.5C60 170 86 162 105 162"/>
+    <path class="brd dt" data-a="fade" data-t="1000" d="M105 191C88 193 62 208 32 208.5A19 19 0 0 1 30 170.5C60 170 86 162 105 162"/>
+    <circle class="pt" data-a="draw" data-t="0" data-d="640" cx="285" cy="135" r="42"/>
+    <circle class="ld dt" data-a="fade" data-t="420" cx="285" cy="135" r="35"/>
+    <path class="tg" d="M289 121L276 139H284L279 152L294 133H286Z"/>
+  </g>
+  <g class="port on" data-a="fade" data-t="1000"><path class="ld" d="M60 52V164"/><text class="pn" x="60" y="14" text-anchor="middle">USB-C · 45 Вт</text><text class="pw" x="60" y="30" text-anchor="middle">до 20 В</text><text class="pw" x="60" y="43" text-anchor="middle">встроенный кабель</text></g>
+  <g class="port on" data-a="fade" data-t="460"><path class="ld" d="M285 52V91"/><text class="pn" x="285" y="14" text-anchor="middle">Qi · 15 Вт</text><text class="pw" x="285" y="30" text-anchor="middle">на магните</text></g>
+  <path class="dm" d="M345 60h10M345 210h10M350 60V210"/><text class="dimt" x="358" y="139">74,8</text>
+  <path class="dm" d="M105 219v10M335 219v10M105 224H335"/><text class="dimt" x="220" y="236" text-anchor="middle">114,8 мм</text>
+</svg>
+</template>
+<template id="sc-MSP17-EU">
+<svg viewBox="0 0 440 236" role="img" aria-label="MSP17 EU сбоку: вилка 220 В складывается в нишу корпуса и откидывается на петле">
+  <rect class="bd" x="56" y="128" width="328" height="65" rx="12"/>
+  <rect class="sm dt" x="60.5" y="132.5" width="319" height="56" rx="9"/>
+  <path class="sm" d="M76 128V148H172V128"/>
+  <g class="port on"><g data-a="rot" data-t="300" data-d="760" style="transform-origin:76px 128px;transform:rotate(-90deg)">
+    <rect class="pt" x="76" y="128" width="46" height="20" rx="2"/>
+    <path class="ld dt" d="M84 132V144M90 132V144M96 132V144"/>
+    <rect class="pt" x="122" y="133" width="48" height="10" rx="5"/>
+    <path class="ld dt" d="M142 133V143"/>
+  </g></g>
+  <circle class="tg" cx="76" cy="128" r="2.4"/>
+  <g class="port on" data-a="fade" data-t="980"><path class="ld" d="M250 52V64H96"/><text class="pn" x="250" y="14" text-anchor="middle">220 В</text><text class="pw" x="250" y="30" text-anchor="middle">вилка складывается</text><text class="pw" x="250" y="43" text-anchor="middle">в корпус</text></g>
+  <path class="dm" d="M56 203v10M384 203v10M56 208H384"/><text class="dimt" x="220" y="226" text-anchor="middle">128,6 мм</text>
+  <path class="dm" d="M394 128h10M394 193h10M399 128V193"/><text class="dimt" x="407" y="164">25,6</text>
+</svg>
+</template>
+<template id="sc-MSP07">
+<svg viewBox="0 0 440 236" role="img" aria-label="MSP07 сбоку: корпус толщиной 10 мм примагничивается к спине телефона, без провода Qi 7,5 Вт, 112,7 г">
+  <g class="dv"><rect x="13" y="150" width="353" height="19" rx="8"/><rect x="19" y="142" width="72" height="8" rx="3"/></g>
+  <g class="dv dt"><path d="M21 164H358"/><rect x="236" y="155" width="26" height="4" rx="2"/><rect x="270" y="155" width="18" height="4" rx="2"/></g>
+  <g data-a="snap" data-t="150" data-d="900">
+    <rect class="bd" x="97" y="126" width="246" height="24" rx="8"/>
+    <path class="sm" d="M107 132H333"/>
+    <rect class="pt dt" x="314" y="136" width="16" height="6" rx="3"/>
+  </g>
+  <g class="port on"><path class="cb" data-a="pulse" data-t="930" d="M110 150H330"/></g>
+  <g data-a="fade" data-t="1150"><path class="ld" d="M150 52V124"/><text class="pn" x="150" y="14" text-anchor="middle">112,7 г</text><text class="pw" x="150" y="30" text-anchor="middle">полутвердотельная</text></g>
+  <g class="port on" data-a="fade" data-t="1050"><path class="ld" d="M300 52V124"/><text class="pn" x="300" y="14" text-anchor="middle">Qi · 7,5 Вт</text><text class="pw" x="300" y="30" text-anchor="middle">на магните</text></g>
+  <g class="port on" data-a="fade" data-t="1100"><path class="dm" d="M372 126h10M372 150h10M377 126V150"/><text class="dimt" x="388" y="141">10 мм</text></g>
+  <g data-a="fade" data-t="1200"><path class="dm" d="M97 185v10M343 185v10M97 190H343"/><text class="dimt" x="220" y="210" text-anchor="middle">102,6 мм</text></g>
+</svg>
+</template>
 <div class="tail"></div>
 <dialog class="vd"><div class="h mono"><span>Видео · <span class="vm">M25 pro</span></span><button class="x" type="button" aria-label="Закрыть">✕</button></div><div class="ph">Видео модели — скоро</div></dialog>
 
@@ -356,15 +453,79 @@ nav .btn:focus-visible{outline:none}
   const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(rm){el.textContent=W[0]}else(function tick(){const s=W[w];if(!del){c++;el.textContent=s.slice(0,c);if(c===s.length){del=true;return setTimeout(tick,1600)}}
     else{c--;el.textContent=s.slice(0,c);const n=(w+1)%W.length;if(c<=keep(s,W[n])){del=false;w=n}}setTimeout(tick,del?45:90)})();
-    /* телефон: кадр фона прижат вправо, иначе свет уходит за край */
+  /* телефон: кадр фона прижат вправо, иначе свет уходит за край */
   const bgS=document.querySelector('.bgS');if(matchMedia('(prefers-reduced-motion: reduce)').matches)bgS.pauseAnimations();const fitBg=()=>bgS.setAttribute('preserveAspectRatio',innerWidth<=860?'xMaxYMid slice':'xMidYMid slice');fitBg();addEventListener('resize',fitBg);
   const hero=document.getElementById('hero');
-  /* модели: смена текущей по клику (стенд: меняет только имя в секции 02) */
+  /* модели: смена текущей по клику (стенд: меняет имя в секции 02 и картинку; цифры 02 — пока M25 pro) */
   const name=()=>document.querySelector('.models li.cur').textContent;
-  const IMG={'M25 pro':'assets/m25-pro/m25pro-hero.webp'};  /* картинки моделей; у остальных пока пусто — 3D и заглушка удалены [В 19.11] */
-  document.querySelectorAll('.models li').forEach(li=>li.onclick=()=>{if(li.classList.contains('cur'))return;document.querySelectorAll('.models li').forEach(x=>x.classList.toggle('cur',x===li));
-    const m=name();document.querySelector('.s2 h2').textContent=m;document.querySelector('.wm').textContent=m;
-    hero.classList.toggle('img',m in IMG);if(m in IMG)document.querySelector('.pimg').src=IMG[m]});
+  /* картинки моделей [В 24.11: «для hero можно брать изображения ~/Downloads/34553» → «да, ставь во вкладки, фон MSP07 убери локально»];
+     MSP07 — новый кадр владельца с прозрачным фоном [В 24.11: «фото обновил по msp07 в папке»]; все три обрезаны по товару; k — ключ для своей посадки в CSS (.hb[data-m]) */
+  const IMG={'M25 pro':{k:'m25',src:'assets/m25-pro/m25pro-hero.webp',w:1509,h:1720,alt:'Внешний аккумулятор Movespeed M25 pro на ноутбуке, из портов выходят два кабеля USB-C'},
+    'S20 Plus':{k:'s20',src:'assets/s20-plus/s20plus-hero.webp',w:1543,h:1817,alt:'Внешний аккумулятор Movespeed S20 Plus, кабель подключён к ноутбуку'},
+    'MSP17 EU':{k:'msp17',src:'assets/msp17-eu/msp17-eu-hero.webp',w:780,h:820,alt:'Внешний аккумулятор Movespeed MSP17 EU со встроенной вилкой и двумя кабелями'},
+    'MSP07':{k:'msp07',src:'assets/msp07/msp07-hero.webp',w:691,h:1160,alt:'Внешний аккумулятор Movespeed MSP07 на магните на задней крышке iPhone'}};
+  const swap=d=>{hero.classList.toggle('img',!!d);if(!d)return;hero.dataset.m=d.k;const im=document.querySelector('.pimg');im.width=d.w;im.height=d.h;im.alt=d.alt;im.src=d.src;return im};
+  /* плавная смена: уход → подмена кадра, пока его не видно → приход с другой стороны; tok отбрасывает устаревшие шаги при быстрых кликах */
+  const pw=document.querySelector('.pwrap');let tok=0;
+  const setImg=(m,dir)=>{const d=IMG[m],t=++tok;pw.style.setProperty('--dx',(-dir*24)+'px');pw.classList.add('out');
+    setTimeout(async()=>{if(t!==tok)return;const im=swap(d);
+      pw.classList.add('pre');pw.style.setProperty('--dx',(dir*24)+'px');
+      if(im)try{await im.decode()}catch(e){}
+      if(t!==tok)return;void pw.offsetWidth;pw.classList.remove('pre');requestAnimationFrame(()=>{if(t===tok)pw.classList.remove('out')})},200)};
+  Object.values(IMG).forEach(d=>{const i=new Image();i.src=d.src});  /* подгрузить заранее: смена вкладки без мигания */
+  /* секция 02 по модели [В 25.11: «да, начинай с первого пункта» — цифры 02 у каждой вкладки свои]; источник — страницы моделей на avalonica.ru
+     (yspbs20-plus-grey, msp17-eu-grey, msp07-grey), заявлено производителем; M25 pro — прежний текст стенда. Схема разъёмов есть только у M25 pro
+     (по рендерам торца); у остальных — заглушка, пока нет рендера торца */
+  /* третья цифра у S20 Plus, MSP17 EU, MSP07 — вместо «Можно в самолёт» [В 25.11: «Можно в самолёт у других моделей не так востребованна…» → «да, везде А»]; источник — avalonica.ru:
+     S20 и MSP17 «до трёх устройств одновременно», MSP07 «до -15°С… продолжает заряжать». У S20 таблица портов сайта противоречит тексту — выбор владельца. */
+  const S2={'M25 pro':{full:'YSPBM25 pro · Powerbank',p:null,st:null,sc:1},
+    'S20 Plus':{full:'YSPBS20 Plus · Powerbank',
+      p:'45&nbsp;Вт по&nbsp;USB-C с&nbsp;напряжением до&nbsp;20&nbsp;В&nbsp;— хватит ноутбуку. Телефон заряжает и&nbsp;без провода: 15&nbsp;Вт, держится на&nbsp;магните. Сквозной заряд, корпус из&nbsp;алюминия, 363&nbsp;г.',
+      st:[['20&nbsp;000','мАч','Ёмкость'],['45','Вт','По USB-C, до 20 В'],['3','устройства','Заряжает одновременно'],['15','Вт','Без провода, на магните (Qi)']]},
+    'MSP17 EU':{full:'MSP17 EU · Powerbank',
+      p:'Вилка 220&nbsp;В встроена в&nbsp;корпус: заряжается от&nbsp;розетки без адаптера и&nbsp;сам работает как сетевое зарядное. Встроенный кабель USB-C, дисплей заряда.',
+      st:[['10&nbsp;000','мАч','Ёмкость'],['22,5','Вт','QC 4+, PD 3.0, PPS'],['3','устройства','Сразу: USB-C, USB-A и кабель'],['220','В','Встроенная вилка — без адаптера']]},
+    'MSP07':{full:'MSP07 · Powerbank',
+      p:'Полутвердотельная батарея: меньше жидкого электролита&nbsp;— устойчивее к&nbsp;перегреву и&nbsp;повреждениям. Держится на&nbsp;телефоне магнитом, корпус толщиной 10&nbsp;мм, 112,7&nbsp;г.',
+      st:[['5&nbsp;000','мАч','Ёмкость'],['18','Вт','По USB-C — он же вход'],['−15','°C','Заряжает и на морозе'],['7,5','Вт','Без провода, на магните (Qi)']]}};
+  const s2=document.getElementById('s2'),anat=s2.querySelector('.anat'),s2p=s2.querySelector('p'),s2f=s2.querySelector('.full'),s2l=s2.querySelector('.stats');
+  const base={p:s2p.innerHTML,st:s2l.innerHTML,sc:anat.innerHTML};  /* M25 pro — как в разметке */
+  /* движение схем — один раз [В 25.11: «движение однократное»]; играет, когда схема на экране (≥60 %): модель можно сменить во вкладках hero, пока 02 ниже экрана —
+     тогда схема ждёт и проигрывается при появлении. Без движения (reduce) — сразу конечный кадр: конечный кадр = разметка шаблона, движение только ведёт к нему. */
+  const RM=matchMedia('(prefers-reduced-motion: reduce)'),EZ='cubic-bezier(.23,1,.32,1)';
+  let need=false,seen=false;
+  /* гасить только свои анимации схемы: CSS-переход прихода колонки (.swp) не трогать, иначе колонка дёргается к полной яркости (замер 25.11: 0,91 → 1,00) */
+  const stopA=()=>anat.getAnimations({subtree:true}).forEach(a=>{if(!(a instanceof CSSTransition))a.cancel()});
+  const hideA=()=>anat.querySelectorAll('[data-a]').forEach(el=>el.style.opacity=0);
+  const play=()=>{stopA();anat.querySelectorAll('[data-a]').forEach(el=>el.style.opacity='');need=false;if(RM.matches)return;
+    anat.querySelectorAll('[data-a]').forEach(el=>{const a=el.dataset.a,t=+el.dataset.t||0,d=+el.dataset.d||0,o={delay:t,fill:'backwards'};
+      if(a==='draw'){if(typeof el.getTotalLength!=='function')return;const L=el.getTotalLength();el.animate([{strokeDasharray:L,strokeDashoffset:L},{strokeDasharray:L,strokeDashoffset:0}],{...o,duration:d||420,easing:EZ})}
+      else if(a==='fade')el.animate([{opacity:0},{opacity:1}],{...o,duration:320,easing:EZ});
+      else if(a==='rot')el.animate([{transform:'rotate(0deg)'},{transform:'rotate(-90deg)'}],{...o,duration:d||700,easing:EZ});  /* вилка MSP17 откидывается */
+      else if(a==='snap')el.animate([{transform:'translateY(-56px)',opacity:0,easing:'ease-out'},{transform:'translateY(-45px)',opacity:1,offset:.2,easing:'cubic-bezier(.55,0,.9,.45)'},
+        {transform:'translateY(0px)',opacity:1,offset:.86,easing:'ease-out'},{transform:'translateY(2px)',opacity:1,offset:.93},{transform:'none',opacity:1}],{...o,duration:d||900});  /* MSP07 разгоняется к магниту и садится */
+      else if(a==='pulse')el.animate([{opacity:0,strokeWidth:1.5},{opacity:1,strokeWidth:4,offset:.25},{opacity:1,strokeWidth:1.5}],{...o,duration:700,easing:'ease-out'});
+    })};
+  new IntersectionObserver(es=>{seen=es[es.length-1].intersectionRatio>=.6;if(seen&&need)play()},{threshold:[0,.6]}).observe(anat);
+  const fill=m=>{const d=S2[m];if(!d)return;s2.querySelector('h2').textContent=m;s2f.textContent=d.full;s2p.innerHTML=d.p||base.p;
+    s2l.innerHTML=d.st?d.st.map(([v,u,c])=>`<li><b>${v}<small>${u}</small></b><span>${c}</span></li>`).join(''):base.st;
+    const tp=document.getElementById('sc-'+m.replace(/\s+/g,'-'));
+    stopA();
+    anat.innerHTML=d.sc?base.sc:tp?`<div class="sv">${tp.innerHTML}<button class="rp" type="button" aria-label="Проиграть анимацию заново" title="Проиграть заново">↻</button></div>`:`<svg viewBox="0 0 440 236" role="img" aria-label="Схема разъёмов ${m} — нужен рендер торца"><rect class="ph" x="56" y="74" width="328" height="104" rx="24"/><text class="pht" x="220" y="122" text-anchor="middle">схема разъёмов ${m}</text><text class="pht" x="220" y="140" text-anchor="middle">нужен рендер торца</text></svg>`;
+    const rp=anat.querySelector('.rp');if(rp)rp.onclick=play;need=!!anat.querySelector('[data-a]')&&!RM.matches;if(need)hideA();};
+  /* плавная смена текстов 02: те же шаги, что у картинки (уход → подмена невидимым → приход); свой счётчик, чтобы быстрые клики не путали шаги */
+  [s2.querySelector('h2'),s2f,s2p,anat,s2l].forEach((e,i)=>{e.classList.add('swp');e.style.setProperty('--i',[0,0,1,2,3][i])});
+  /* абзац не прыгает [В 25.11: «все характеристики прыгают надо сделать чтобы было на одном месте»]: тексты выровнены по длине,
+     а высота абзаца закреплена по самому длинному из четырёх на текущей ширине (меряем копией вне экрана; пересчёт при смене ширины) */
+  const lockP=()=>{const c=s2p.cloneNode();c.style.cssText=`position:absolute;visibility:hidden;left:-9999px;width:${s2p.getBoundingClientRect().width}px;min-height:0`;
+    s2p.parentNode.appendChild(c);let mx=0;for(const k in S2){c.innerHTML=S2[k].p||base.p;mx=Math.max(mx,c.getBoundingClientRect().height)}c.remove();s2p.style.minHeight=mx+'px'};
+  lockP();addEventListener('resize',lockP);document.fonts&&document.fonts.ready.then(lockP);
+  let tok2=0;
+  const setS2=m=>{const t=++tok2;s2.classList.add('out');
+    setTimeout(()=>{if(t!==tok2)return;fill(m);void s2.offsetWidth;requestAnimationFrame(()=>{if(t!==tok2)return;s2.classList.remove('out');setTimeout(()=>{if(t===tok2&&need&&seen)play()},250)})},200)};  /* схема рисуется, когда колонка уже пришла */
+  document.querySelectorAll('.models li').forEach(li=>li.onclick=()=>{if(li.classList.contains('cur'))return;const L=[...document.querySelectorAll('.models li')],dir=L.indexOf(li)>L.indexOf(document.querySelector('.models li.cur'))?1:-1;L.forEach(x=>x.classList.toggle('cur',x===li));
+    const m=name();document.querySelector('.wm').textContent=m;setS2(m);
+    setImg(m,dir)});
   const dlg=document.querySelector('.vd');document.querySelector('.watch').onclick=()=>{dlg.querySelector('.vm').textContent=name();dlg.showModal()};
   dlg.querySelector('.x').onclick=()=>dlg.close();dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
 })();
@@ -378,22 +539,7 @@ nav .btn:focus-visible{outline:none}
     for(const p of[pa,pb]){p.style.setProperty('--i',`0 ${d0-s/2}px ${s}px ${L}px`);p.style.setProperty('--f',`0 0px ${L}px ${L}px`)}};
   fit();addEventListener('resize',fit);document.fonts&&document.fonts.ready.then(fit)})();
 
-/* подсветка схемы портов, вариант А: карточка режима → занятые порты горят, подписи и крупная цифра — мощность в этом режиме */
-(function(){const s2=document.querySelector('.s2'),ports=[...s2.querySelectorAll('.anat .port')],mb=[...s2.querySelectorAll('.modes button')];
-  const num=s2.querySelector('.ow .num'),ob=s2.querySelector('.ob');
-  /* m25-pro-specs-2026-11-19.md, таблица комбинаций */
-  const M={'c1':[{c1:'140 Вт'},140,'USB-C1 — 140 Вт'],'c1 c2':[{c1:'100 Вт',c2:'45 Вт'},145,'USB-C1 100 Вт + USB-C2 45 Вт'],
-    'c1 a':[{c1:'100 Вт',a:'22,5 Вт'},122.5,'USB-C1 100 Вт + USB-A 22,5 Вт'],'c2 a':[{c2:'15 Вт',a:'на двоих'},15,'USB-C2 и USB-A — 15 Вт на двоих'],
-    'c1 c2 a':[{c1:'100 Вт',c2:'15 Вт',a:'на двоих'},115,'USB-C1 100 Вт + USB-C2 и USB-A — 15 Вт на двоих']};
-  const fmt=v=>(Math.round(v*10)/10).toString().replace('.',',');const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let cur=140,raf=0;
-  function count(to){cancelAnimationFrame(raf);if(rm){cur=to;num.textContent=fmt(to);return}const from=cur,t0=performance.now(),D=380;
-    const step=t=>{const k=Math.min(1,(t-t0)/D),e=1-Math.pow(1-k,3),v=from+(to-from)*e;num.textContent=k<1?String(Math.round(v)):fmt(to);cur=k<1?v:to;if(k<1)raf=requestAnimationFrame(step)};
-    raf=requestAnimationFrame(step)}
-  function mode(m){const [v,total,txt]=M[m];const ids=m.split(' ');
-    ports.forEach(g=>{g.classList.toggle('on',ids.includes(g.dataset.p));const t=g.querySelector('.pw:not(.in)');t.textContent=v[g.dataset.p]||t.dataset.max});
-    ob.textContent=txt;count(total);mb.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.m===m)))}
-  mb.forEach(b=>b.onclick=()=>mode(b.dataset.m))})();
+
 </script>
 
 </body></html>
