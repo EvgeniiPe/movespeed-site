@@ -495,7 +495,7 @@
   fit();addEventListener('resize',fit);document.fonts&&document.fonts.ready.then(fit)})();
 
 /* поиск в шапке [В 26.11: вариант А — по данным страницы; вид — «Строка в шапке»]: модели 03 (BATS серой главной), строки гида 06,
-   вопросы 07 и вкладки моделей hero, которых нет в 03 (S20 Plus); щелчок — к карточке, строке гида или открытому вопросу.
+   вопросы 07 и вкладки моделей hero, которых нет в 03 (S20 Plus); щелчок — к карточке, статье гида (строка без статьи — к строке) или открытому вопросу.
    Индекс — при первом открытии: блоки ниже и их скрипт стоят после этого скрипта. На отдельном стенде hero-b находит только вкладки. */
 (function(){
   const nav=document.querySelector('nav'),btn=nav.querySelector('.srch'),q=nav.querySelector('#sq'),res=nav.querySelector('.sres'),sin=res.querySelector('.sin');
@@ -516,7 +516,7 @@
       go:()=>toCard(m.n)}));
     const inB=new Set(B.map(m=>key(m.n)));
     document.querySelectorAll('.models li').forEach(li=>{const n=li.textContent.trim();if(!inB.has(key(n)))L.push({g:0,t:n,meta:'Первый экран',body:'',go:()=>toHero(li)})});
-    document.querySelectorAll('#s8 .toc li').forEach(li=>{const h=li.querySelector('h3'),tg=li.querySelector('.tg');if(h)L.push({g:1,t:h.textContent,meta:tg?tg.textContent:'',body:'',go:()=>toRow(li)})});
+    document.querySelectorAll('#s8 .toc li').forEach(li=>{const h=li.querySelector('h3'),tg=li.querySelector('.tg'),a=li.querySelector('a'),u=a&&a.getAttribute('href');if(h)L.push({g:1,t:h.textContent,meta:tg?tg.textContent:'',body:'',go:u&&u!=='#'?()=>{location.href=u}:()=>toRow(li)})});  /* строка со статьёй — открыть статью [В 26.11: «давай 2, поиск в шапке»]; строка без статьи — прокрутить к ней */
     document.querySelectorAll('#s9 details.qa:not(.seo)').forEach(d=>{const h=d.querySelector('summary b'),a=d.querySelector('.ans');if(h)L.push({g:2,t:h.textContent,meta:'',body:a?a.textContent:'',go:()=>toQa(d)})});
     L.forEach(x=>{x.T=norm(x.t);x.H=norm(x.t+' '+x.meta+' '+x.body);x.Tc=x.T.replace(/ /g,'');x.Hc=x.H.replace(/ /g,'')});return L};
   const find=t=>{const Q=norm(t);if(!Q)return[];const tk=Q.split(' ');
