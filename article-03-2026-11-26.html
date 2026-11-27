@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Что такое PD и PPS: быстрая зарядка от повербанка — Movespeed</title>
+<title>Power Delivery и PPS: быстрая зарядка повербанка — Movespeed</title>
 <meta name="description" content="Что такое USB Power Delivery и PPS, что нужно для быстрой зарядки iPhone, Samsung Galaxy и Google Pixel и какие повербанки Movespeed поддерживают PD и PPS.">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Что такое PD и PPS", "description": "Что такое USB Power Delivery и PPS, что нужно для быстрой зарядки iPhone, Samsung Galaxy и Google Pixel и какие повербанки Movespeed поддерживают PD и PPS.", "inLanguage": "ru", "author": {"@type": "Organization", "name": "Редакция Movespeed", "url": "https://evgeniipe.github.io/movespeed-site/"}, "publisher": {"@type": "Organization", "name": "Movespeed", "url": "https://evgeniipe.github.io/movespeed-site/"}, "datePublished": "2026-11-26", "dateModified": "2026-11-26", "mainEntityOfPage": "https://evgeniipe.github.io/movespeed-site/article-03-2026-11-26.html"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://evgeniipe.github.io/movespeed-site/"}, {"@type": "ListItem", "position": 2, "name": "Гид", "item": "https://evgeniipe.github.io/movespeed-site/articles-2026-11-26.html"}, {"@type": "ListItem", "position": 3, "name": "Что такое PD и PPS", "item": "https://evgeniipe.github.io/movespeed-site/article-03-2026-11-26.html"}]}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <!-- augmented-ui 2.0.0 (BSD-2): срезы карточек 03 с рамкой вдоль среза; выбран вариант B пробы aug-card-probe [В 19.11: «вот такой вариант попробуем B»] -->
@@ -95,6 +96,10 @@
 .a-meta{margin:22px 0 0;color:var(--mut)}
 .a-meta a{color:#a9b3c6;text-decoration:none;border-bottom:1px solid rgba(0,161,233,.5)}
 .a-meta a:hover{color:var(--fg);border-color:var(--acc)}
+/* [В 27.11: «да, перенос исправь»] подпись автора: строка целиком — 424 px (замер при 11 px, 390), помещается с окна 456;
+   уже — автор отдельной строкой, разделитель скрыт, «·» не висит в конце строки; остаток строки — 262 px, входит и при 320 */
+.a-meta .a-by{white-space:nowrap}
+@media (max-width:479px){.a-meta .a-by{display:block}.a-meta .a-sep{display:none}}
 
 /* «Коротко» — рамка со срезом 12 px, как карточки 03 */
 .a-short{position:relative;margin:40px 0 0;padding:26px 30px 24px;background:rgba(0,161,233,.04);
@@ -281,7 +286,7 @@
       <div class="a-crumb mono"><a href="index.html">Главная</a> / <a href="articles-2026-11-26.html">Гид</a> / <b>03</b></div>
       <div class="a-eb mono"><span class="acc">/ 03</span>&nbsp;&nbsp;Гид · Зарядка</div>
       <h1>Что такое PD и&nbsp;PPS</h1>
-      <p class="a-meta mono">Проверено <time datetime="2026-11-26">26.11.2026</time> · <a href="#p06">Источники ↓</a></p>
+      <p class="a-meta mono"><span class="a-by">Редакция Movespeed</span><span class="a-sep"> · </span>Проверено <time datetime="2026-11-26">26.11.2026</time> · <a href="#p06">Источники ↓</a></p>
 
       <div class="a-short a-fig" data-augmented-ui="tr-clip border">
         <div><span class="k mono">Коротко</span>

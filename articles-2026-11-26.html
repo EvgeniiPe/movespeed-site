@@ -95,6 +95,10 @@
 .a-meta{margin:22px 0 0;color:var(--mut)}
 .a-meta a{color:#a9b3c6;text-decoration:none;border-bottom:1px solid rgba(0,161,233,.5)}
 .a-meta a:hover{color:var(--fg);border-color:var(--acc)}
+/* [В 27.11: «да, перенос исправь»] подпись автора: строка целиком — 424 px (замер при 11 px, 390), помещается с окна 456;
+   уже — автор отдельной строкой, разделитель скрыт, «·» не висит в конце строки; остаток строки — 262 px, входит и при 320 */
+.a-meta .a-by{white-space:nowrap}
+@media (max-width:479px){.a-meta .a-by{display:block}.a-meta .a-sep{display:none}}
 
 /* «Коротко» — рамка со срезом 12 px, как карточки 03 */
 .a-short{position:relative;margin:40px 0 0;padding:26px 30px 24px;background:rgba(0,161,233,.04);
