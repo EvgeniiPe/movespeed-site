@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Повербанк в самолёт: какой можно в ручную кладь — Movespeed</title>
-<meta name="description" content="Можно ли взять повербанк в самолёт: правило 100 Вт·ч, как посчитать ватт-часы, правила «Аэрофлота», «Победы» и IATA 2026, все модели Movespeed на шкале.">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Правило 100 Вт·ч в самолёте", "description": "Можно ли взять повербанк в самолёт: правило 100 Вт·ч, как посчитать ватт-часы, правила «Аэрофлота», «Победы» и IATA 2026, все модели Movespeed на шкале.", "inLanguage": "ru", "author": {"@type": "Organization", "name": "Редакция Movespeed", "url": "https://evgeniipe.github.io/movespeed-site/"}, "publisher": {"@type": "Organization", "name": "Movespeed", "url": "https://evgeniipe.github.io/movespeed-site/"}, "datePublished": "2026-11-26", "dateModified": "2026-11-26", "mainEntityOfPage": "https://evgeniipe.github.io/movespeed-site/article-02-2026-11-26.html"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://evgeniipe.github.io/movespeed-site/"}, {"@type": "ListItem", "position": 2, "name": "Гид", "item": "https://evgeniipe.github.io/movespeed-site/articles-2026-11-26.html"}, {"@type": "ListItem", "position": 3, "name": "Правило 100 Вт·ч в самолёте", "item": "https://evgeniipe.github.io/movespeed-site/article-02-2026-11-26.html"}]}]}</script>
+<meta name="description" content="Можно ли взять повербанк в самолёт и в ручную кладь: правило 100 Вт·ч, правила ICAO 2026 и восьми авиакомпаний, проверка перед вылетом.">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Правило 100 Вт·ч в самолёте", "description": "Можно ли взять повербанк в самолёт и в ручную кладь: правило 100 Вт·ч, правила ICAO 2026 и восьми авиакомпаний, проверка перед вылетом.", "inLanguage": "ru", "author": {"@type": "Organization", "name": "Редакция Movespeed", "url": "https://evgeniipe.github.io/movespeed-site/"}, "publisher": {"@type": "Organization", "name": "Movespeed", "url": "https://evgeniipe.github.io/movespeed-site/"}, "datePublished": "2026-11-26", "dateModified": "2026-11-27", "mainEntityOfPage": "https://evgeniipe.github.io/movespeed-site/article-02-2026-11-26.html"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://evgeniipe.github.io/movespeed-site/"}, {"@type": "ListItem", "position": 2, "name": "Гид", "item": "https://evgeniipe.github.io/movespeed-site/articles-2026-11-26.html"}, {"@type": "ListItem", "position": 3, "name": "Правило 100 Вт·ч в самолёте", "item": "https://evgeniipe.github.io/movespeed-site/article-02-2026-11-26.html"}]}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <!-- augmented-ui 2.0.0 (BSD-2): срезы карточек 03 с рамкой вдоль среза; выбран вариант B пробы aug-card-probe [В 19.11: «вот такой вариант попробуем B»] -->
@@ -276,7 +276,19 @@
 .a-tbl th.bar{position:relative}
 .a-tbl th.bar span{position:absolute;right:0;bottom:12px;transform:translateX(50%);color:var(--fg)}
 
+/* 04 — правила авиакомпаний: на телефоне строка таблицы — блок с подписями столбцов (пять текстовых столбцов в 390 не помещаются) */
+.a-air td{vertical-align:top;font-size:15px;line-height:1.5}
+.a-air td:first-child{white-space:normal}
+.a-air sup.a-ref{white-space:nowrap}
+.a-note{color:var(--mut);font-size:15px}
+
 @media (max-width:860px){
+  .a-air thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  .a-air tr{display:block;padding:14px 0;border-bottom:1px solid var(--line)}
+  .a-air td{display:grid;grid-template-columns:minmax(0,9.5em) minmax(0,1fr);gap:12px;padding:3px 0;border:0}
+  .a-air td:first-child{display:block;padding-bottom:8px;font-size:17px}
+  .a-air td[data-l]::before{content:attr(data-l);font:500 11px/1.9 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+  .a-air tbody tr:hover td{background:none}
   .a-in{grid-template-columns:1fr}
   .a-seg button{flex:1}
   .a-ans span{padding:12px 4px}
@@ -304,7 +316,7 @@
       <div class="a-crumb mono"><a href="index.html">Главная</a> / <a href="articles-2026-11-26.html">Гид</a> / <b>02</b></div>
       <div class="a-eb mono"><span class="acc">/ 02</span>&nbsp;&nbsp;Гид · В&nbsp;самолёт</div>
       <h1>Правило 100&nbsp;Вт·ч в&nbsp;самолёте</h1>
-      <p class="a-meta mono"><span class="a-by">Редакция Movespeed</span><span class="a-sep"> · </span>Проверено <time datetime="2026-11-26">26.11.2026</time> · <a href="#p06">Источники ↓</a></p>
+      <p class="a-meta mono"><span class="a-by">Редакция Movespeed</span><span class="a-sep"> · </span>Проверено <time datetime="2026-11-27">27.11.2026</time> · <a href="#p09">Источники ↓</a></p>
 
       <div class="a-short a-fig" data-augmented-ui="tr-clip border">
         <div><span class="k mono">Коротко</span>
@@ -363,16 +375,63 @@
       <h2><span class="mono">/ 03</span>От&nbsp;100 до&nbsp;160&nbsp;Вт·ч и&nbsp;больше</h2>
       <p>Здесь правила расходятся.</p>
       <ul class="a-list">
-        <li><b>IATA</b> в&nbsp;рекомендациях 2026 года: повербанк больше 100&nbsp;Вт·ч брать нельзя&nbsp;— ни&nbsp;в&nbsp;салон, ни&nbsp;в&nbsp;багаж<sup class="a-ref"><a href="#src-2">2</a></sup>.</li>
-        <li><b>«Победа»</b> пока разрешает до&nbsp;двух повербанков до&nbsp;160&nbsp;Вт·ч каждый<sup class="a-ref"><a href="#src-4">4</a></sup>.</li>
-        <li><b>«Аэрофлот»</b> на&nbsp;странице о&nbsp;повербанках предел в&nbsp;Вт·ч не&nbsp;называет<sup class="a-ref"><a href="#src-3">3</a></sup>.</li>
+        <li><b>ICAO</b> (обязательные международные правила, с&nbsp;27&nbsp;марта 2026 года): повербанк от&nbsp;100 до&nbsp;160&nbsp;Вт·ч можно взять только с&nbsp;разрешения авиакомпании<sup class="a-ref"><a href="#src-6">6</a></sup>.</li>
+        <li><b>IATA</b> советует авиакомпаниям строже: повербанк больше 100&nbsp;Вт·ч не&nbsp;брать вовсе<sup class="a-ref"><a href="#src-2">2</a></sup>.</li>
+        <li><b>Авиакомпании</b> решают сами: S7, «Победа», «Ютэйр» и&nbsp;«Азимут» пускают до&nbsp;160&nbsp;Вт·ч, «Уральские авиалинии»&nbsp;— до&nbsp;100<sup class="a-ref"><a href="#src-7">7</a><a href="#src-4">4</a><a href="#src-9">9</a><a href="#src-10">10</a><a href="#src-8">8</a></sup>. Подробнее&nbsp;— в&nbsp;таблице ниже.</li>
       </ul>
-      <p>Больше 160&nbsp;Вт·ч пассажиру везти нельзя ни&nbsp;у&nbsp;кого&nbsp;— только как опасный груз<sup class="a-ref"><a href="#src-2">2</a><a href="#src-4">4</a></sup>.</p>
-      <p>Если повербанк больше 100&nbsp;Вт·ч, проверьте правила своей авиакомпании до&nbsp;поездки.</p>
+      <p>Больше 160&nbsp;Вт·ч пассажиру везти нельзя ни&nbsp;у&nbsp;кого&nbsp;— только как опасный груз<sup class="a-ref"><a href="#src-2">2</a><a href="#src-4">4</a><a href="#src-6">6</a></sup>.</p>
     </section>
 
-    <section class="a-sec" id="p04" data-t="Наши модели на шкале">
-      <h2><span class="mono">/ 04</span>Наши модели на&nbsp;шкале</h2>
+    <section class="a-sec" id="p04" data-t="Правила авиакомпаний">
+      <h2><span class="mono">/ 04</span>Правила авиакомпаний</h2>
+      <p>Правила ниже&nbsp;— со&nbsp;страниц авиакомпаний на&nbsp;27.11.2026. Перед поездкой проверьте у&nbsp;своей: они меняются.</p>
+      <table class="a-tbl a-air">
+        <thead><tr><th scope="col">Авиакомпания</th><th scope="col">Повербанк до</th><th scope="col">Сколько</th><th scope="col">Заряжать телефон от&nbsp;повербанка на&nbsp;борту</th><th scope="col">Где держать</th></tr></thead>
+        <tbody>
+          <tr><td>«Аэрофлот»<sup class="a-ref"><a href="#src-3">3</a></sup></td><td data-l="Повербанк до">предел не&nbsp;назван</td><td data-l="Сколько">2</td><td data-l="Заряжать">нельзя весь полёт</td><td data-l="Где держать">под креслом впереди или в&nbsp;кармане кресла</td></tr>
+          <tr><td>«Россия»<sup class="a-ref"><a href="#src-11">11</a></sup></td><td data-l="Повербанк до">для повербанков не&nbsp;назван; аккумуляторы 100–&#8288;160&nbsp;Вт·ч&nbsp;— с&nbsp;разрешения авиакомпании</td><td data-l="Сколько">2</td><td data-l="Заряжать">нельзя весь полёт</td><td data-l="Где держать">под креслом впереди или в&nbsp;кармане кресла</td></tr>
+          <tr><td>«Победа»<sup class="a-ref"><a href="#src-4">4</a></sup></td><td data-l="Повербанк до">160&nbsp;Вт·ч</td><td data-l="Сколько">2</td><td data-l="Заряжать">нельзя весь полёт</td><td data-l="Где держать">под рукой или под креслом впереди</td></tr>
+          <tr><td>S7<sup class="a-ref"><a href="#src-7">7</a></sup></td><td data-l="Повербанк до">160&nbsp;Вт·ч</td><td data-l="Сколько">2</td><td data-l="Заряжать">нельзя весь полёт</td><td data-l="Где держать">под креслом впереди или в&nbsp;кармане кресла</td></tr>
+          <tr><td>«Уральские авиалинии»<sup class="a-ref"><a href="#src-8">8</a></sup></td><td data-l="Повербанк до">100&nbsp;Вт·ч</td><td data-l="Сколько">2</td><td data-l="Заряжать">нельзя весь полёт</td><td data-l="Где держать">на&nbsp;странице не&nbsp;сказано</td></tr>
+          <tr><td>«Ютэйр»<sup class="a-ref"><a href="#src-9">9</a></sup></td><td data-l="Повербанк до">160&nbsp;Вт·ч, без согласования</td><td data-l="Сколько">2</td><td data-l="Заряжать">нельзя весь полёт</td><td data-l="Где держать">под рукой: в&nbsp;кармане кресла или в&nbsp;сумке</td></tr>
+          <tr><td>«Азимут»<sup class="a-ref"><a href="#src-10">10</a></sup></td><td data-l="Повербанк до">160&nbsp;Вт·ч</td><td data-l="Сколько">на&nbsp;странице не&nbsp;сказано</td><td data-l="Заряжать">на&nbsp;странице не&nbsp;сказано</td><td data-l="Где держать">на&nbsp;странице не&nbsp;сказано</td></tr>
+          <tr><td>Red Wings<sup class="a-ref"><a href="#src-12">12</a></sup></td><td data-l="Повербанк до">160&nbsp;Вт·ч</td><td data-l="Сколько">2</td><td data-l="Заряжать">нельзя на&nbsp;рулении, взлёте и&nbsp;посадке</td><td data-l="Где держать">не&nbsp;на&nbsp;верхней полке</td></tr>
+        </tbody>
+      </table>
+      <p class="a-note">Во&nbsp;всех восьми&nbsp;— только в&nbsp;ручной клади, в&nbsp;багаж нельзя.</p>
+    </section>
+
+    <section class="a-sec" id="p05" data-t="Что изменилось в 2026 году">
+      <h2><span class="mono">/ 05</span>Что изменилось в&nbsp;2026 году</h2>
+      <p>27&nbsp;марта 2026 года ICAO&nbsp;— международная организация гражданской авиации&nbsp;— ужесточила правила для повербанков<sup class="a-ref"><a href="#src-6">6</a></sup>:</p>
+      <ul class="a-list">
+        <li>не&nbsp;больше двух повербанков на&nbsp;человека;</li>
+        <li>повербанк нельзя заряжать на&nbsp;борту;</li>
+        <li>от&nbsp;повербанка не&nbsp;следует заряжать телефон и&nbsp;другие устройства на&nbsp;борту;</li>
+        <li>повербанк&nbsp;— только в&nbsp;ручной клади, контакты защищены от&nbsp;замыкания.</li>
+      </ul>
+      <p>IATA&nbsp;— ассоциация авиакомпаний&nbsp;— советует ещё строже: брать только повербанки до&nbsp;100&nbsp;Вт·ч<sup class="a-ref"><a href="#src-2">2</a></sup>. Российские авиакомпании правила уже обновили, но&nbsp;каждая по-своему&nbsp;— см. таблицу выше.</p>
+    </section>
+
+    <section class="a-sec" id="p06" data-t="Перед вылетом: проверка">
+      <h2><span class="mono">/ 06</span>Перед вылетом: проверка</h2>
+      <ul class="a-list">
+        <li>Вт·ч указаны на&nbsp;корпусе. Без маркировки повербанк могут изъять на&nbsp;досмотре<sup class="a-ref"><a href="#src-2">2</a><a href="#src-4">4</a><a href="#src-7">7</a><a href="#src-9">9</a></sup>. У&nbsp;Movespeed Вт·ч указаны на&nbsp;корпусе.</li>
+        <li>Повербанков не&nbsp;больше двух<sup class="a-ref"><a href="#src-6">6</a></sup>.</li>
+        <li>Повербанк&nbsp;— в&nbsp;ручной клади, не&nbsp;в&nbsp;чемодане<sup class="a-ref"><a href="#src-2">2</a><a href="#src-4">4</a><a href="#src-6">6</a></sup>.</li>
+        <li>Контакты защищены: родная упаковка или изолента<sup class="a-ref"><a href="#src-2">2</a><a href="#src-6">6</a></sup>.</li>
+        <li>Беспроводной повербанк выключен и&nbsp;лежит не&nbsp;вплотную к&nbsp;телефону&nbsp;— чтобы не&nbsp;начал заряжать сам<sup class="a-ref"><a href="#src-2">2</a></sup>.</li>
+        <li>Не&nbsp;заряжайте повербанк прямо перед посадкой; IATA пишет, что авиакомпании предпочитают заряд ниже 25&nbsp;%<sup class="a-ref"><a href="#src-2">2</a></sup>.</li>
+        <li>На&nbsp;досмотре в&nbsp;«Победе» повербанк достают из&nbsp;сумки, как ноутбук<sup class="a-ref"><a href="#src-4">4</a></sup>.</li>
+        <li>Если ручную кладь забирают у&nbsp;трапа в&nbsp;багажный отсек&nbsp;— сначала достаньте повербанк<sup class="a-ref"><a href="#src-2">2</a></sup>.</li>
+        <li>На&nbsp;борту&nbsp;— под креслом впереди или в&nbsp;кармане кресла, не&nbsp;на&nbsp;багажной полке<sup class="a-ref"><a href="#src-3">3</a><a href="#src-7">7</a><a href="#src-11">11</a></sup>.</li>
+        <li>Повербанк нагрелся, дымит или вздулся&nbsp;— сразу скажите экипажу<sup class="a-ref"><a href="#src-2">2</a><a href="#src-4">4</a></sup>.</li>
+        <li>Летите внутри Китая&nbsp;— нужен знак CCC: <a href="article-04-2026-11-26.html">статья 04 «Что такое CCC на&nbsp;повербанке»</a>.</li>
+      </ul>
+    </section>
+
+    <section class="a-sec" id="p07" data-t="Наши модели на шкале">
+      <h2><span class="mono">/ 07</span>Наши модели на&nbsp;шкале</h2>
       <p>Все десять моделей Movespeed меньше 100&nbsp;Вт·ч&nbsp;— их&nbsp;можно брать в&nbsp;ручную кладь<sup class="a-ref"><a href="#src-1">1</a></sup>.</p>
       <table class="a-tbl">
         <thead><tr><th scope="col">Модель</th><th scope="col" class="n cap">Ёмкость, мАч</th><th scope="col" class="n">Вт·ч</th><th scope="col" class="bar"><span aria-hidden="true">100</span><span class="vh">Шкала до&nbsp;100&nbsp;Вт·ч</span></th></tr></thead>
@@ -380,10 +439,10 @@
       </table>
     </section>
 
-    <section class="a-sec" id="p05" data-t="Частые вопросы">
-      <h2><span class="mono">/ 05</span>Частые вопросы</h2>
+    <section class="a-sec" id="p08" data-t="Частые вопросы">
+      <h2><span class="mono">/ 08</span>Частые вопросы</h2>
       <div class="gb a-faq"><ul class="qlist">
-        <li><details class="qa" open><summary><b>Можно ли зарядить телефон от&nbsp;повербанка в&nbsp;полёте?</b><span class="x" aria-hidden="true">+</span></summary><div class="ans"><p>У&nbsp;«Аэрофлота» и&nbsp;«Победы»&nbsp;— нет, весь полёт<sup class="a-ref"><a href="#src-3">3</a><a href="#src-4">4</a></sup>. В&nbsp;рекомендациях IATA запрет только на&nbsp;рулении, взлёте и&nbsp;посадке<sup class="a-ref"><a href="#src-2">2</a></sup>, но&nbsp;на&nbsp;борту действуют правила авиакомпании.</p></div></details></li>
+        <li><details class="qa" open><summary><b>Можно ли зарядить телефон от&nbsp;повербанка в&nbsp;полёте?</b><span class="x" aria-hidden="true">+</span></summary><div class="ans"><p>Нет. По&nbsp;правилам ICAO с&nbsp;27&nbsp;марта 2026 года повербанк на&nbsp;борту не&nbsp;заряжают и&nbsp;не&nbsp;заряжают от&nbsp;него телефон<sup class="a-ref"><a href="#src-6">6</a></sup>. У&nbsp;«Аэрофлота», «России», «Победы», S7, «Уральских авиалиний» и&nbsp;«Ютэйр»&nbsp;— запрет на&nbsp;весь полёт<sup class="a-ref"><a href="#src-3">3</a><a href="#src-11">11</a><a href="#src-4">4</a><a href="#src-7">7</a><a href="#src-8">8</a><a href="#src-9">9</a></sup>; у&nbsp;Red Wings&nbsp;— на&nbsp;рулении, взлёте и&nbsp;посадке<sup class="a-ref"><a href="#src-12">12</a></sup>.</p></div></details></li>
         <li><details class="qa"><summary><b>Можно ли сдать повербанк в&nbsp;багаж?</b><span class="x" aria-hidden="true">+</span></summary><div class="ans"><p>Нет. Только в&nbsp;ручной клади, при себе<sup class="a-ref"><a href="#src-2">2</a><a href="#src-3">3</a><a href="#src-4">4</a></sup>.</p></div></details></li>
         <li><details class="qa"><summary><b>Сколько повербанков можно взять?</b><span class="x" aria-hidden="true">+</span></summary><div class="ans"><p>Не&nbsp;больше двух на&nbsp;человека<sup class="a-ref"><a href="#src-2">2</a><a href="#src-3">3</a><a href="#src-4">4</a></sup>.</p></div></details></li>
         <li><details class="qa"><summary><b>Что если на&nbsp;корпусе не&nbsp;указаны Вт·ч?</b><span class="x" aria-hidden="true">+</span></summary><div class="ans"><p>По&nbsp;правилам IATA Вт·ч должны быть указаны на&nbsp;корпусе; если сотрудник не&nbsp;может их&nbsp;проверить, повербанк могут не&nbsp;пустить на&nbsp;борт<sup class="a-ref"><a href="#src-2">2</a></sup>. «Победа» предупреждает: без маркировки на&nbsp;корпусе повербанк могут изъять на&nbsp;досмотре<sup class="a-ref"><a href="#src-4">4</a></sup>. У&nbsp;Movespeed Вт·ч указаны на&nbsp;корпусе.</p></div></details></li>
@@ -391,14 +450,21 @@
       </ul></div>
     </section>
 
-    <section class="a-sec" id="p06" data-t="Источники">
-      <h2><span class="mono">/ 06</span>Источники</h2>
+    <section class="a-sec" id="p09" data-t="Источники">
+      <h2><span class="mono">/ 09</span>Источники</h2>
       <ol class="a-src">
         <li id="src-1"><span class="no mono">01</span><span class="t">Карточки моделей Movespeed<small><a href="https://avalonica.ru/product/msp07-grey/">MSP07</a> · <a href="https://avalonica.ru/product/msp08-grey/">MSP08</a> · <a href="https://avalonica.ru/product/msp16-blue/">MSP16</a> · <a href="https://avalonica.ru/product/msp17-eu-grey/">MSP17&nbsp;EU</a> · <a href="https://avalonica.ru/product/msp03-white/">MSP03</a> · <a href="https://avalonica.ru/product/yspbq10-green/">YSPBQ10</a> · <a href="https://avalonica.ru/product/yspbs05-grey/">YSPBS05</a> · <a href="https://avalonica.ru/product/yspbs10-gray/">YSPBS10</a> · <a href="https://avalonica.ru/product/yspbs20-plus-grey/">S20&nbsp;Plus</a> · <a href="https://avalonica.ru/product/yspbm25-pro-grey/">M25&nbsp;pro</a></small></span><a class="d mono" href="https://avalonica.ru/" rel="noopener">avalonica.ru ↗</a></li>
         <li id="src-2"><span class="no mono">02</span><span class="t">IATA. Passengers Travelling with Lithium Batteries — Guidance Document, 2026<small>Редакция 31.03.2026, раздел «Power banks» и&nbsp;таблица&nbsp;1</small></span><a class="d mono" href="https://www.iata.org/contentassets/6fea26dd84d24b26a7a1fd5788561d6e/passengers_travelling_with_lithium_batteries.pdf" rel="noopener">iata.org ↗</a></li>
-        <li id="src-3"><span class="no mono">03</span><span class="t">«Аэрофлот». Требования транспортной безопасности<small>Блок о&nbsp;внешних аккумуляторах</small></span><a class="d mono" href="https://www.aeroflot.ru/info/security/" rel="noopener">aeroflot.ru ↗</a></li>
+        <li id="src-3"><span class="no mono">03</span><span class="t">«Аэрофлот». Требования транспортной безопасности<small>Блок о&nbsp;внешних аккумуляторах; прочитано 26.11.2026 (27.11 сайт не&nbsp;открылся)</small></span><a class="d mono" href="https://www.aeroflot.ru/info/security/" rel="noopener">aeroflot.ru ↗</a></li>
         <li id="src-4"><span class="no mono">04</span><span class="t">«Победа». Ручная кладь и&nbsp;багаж; Правила перевозки, приложение&nbsp;3<small><a href="https://www.flypobeda.ru/information/transport-regulations/trapp3">Приложение 3</a></small></span><a class="d mono" href="https://www.flypobeda.ru/information/luggage_baggage" rel="noopener">flypobeda.ru ↗</a></li>
         <li id="src-5"><span class="no mono">05</span><span class="t">China Daily. Power banks without 3C certification banned on domestic flights<small>26.06.2025</small></span><a class="d mono" href="https://www.chinadaily.com.cn/a/202506/26/WS685cfd7fa310a04af22c8ae1.html" rel="noopener">chinadaily.com.cn ↗</a></li>
+        <li id="src-6"><span class="no mono">06</span><span class="t">ICAO. Дополнение №&nbsp;1 к&nbsp;Doc&nbsp;9284, издание 2025–2026<small>Действует с&nbsp;27.03.2026, таблица 8-1, п.&nbsp;1)</small></span><a class="d mono" href="https://www.icao.int/filebrowser/download/92271" rel="noopener">icao.int ↗</a></li>
+        <li id="src-7"><span class="no mono">07</span><span class="t">S7 Airlines. Можно ли взять пауэрбанк в&nbsp;ручную кладь?<small>Справочный центр</small></span><a class="d mono" href="https://www.s7.ru/ru/help-center/articles/ruchnaya-klad-mogu-li-ya-vezti-v-samolete-vneshnii-akkumulyator-dlya-smartfona-power-bank/" rel="noopener">s7.ru ↗</a></li>
+        <li id="src-8"><span class="no mono">08</span><span class="t">«Уральские авиалинии». Требования к&nbsp;опасным грузам, перевозимым пассажирами<small>Внешние аккумуляторы</small></span><a class="d mono" href="https://www.uralairlines.ru/rules/opasnye-veshchestva-i-predmety/trebovaniya-k-opasnym-gruzam-perevozimym-passazhirami-ili-chlenami-ekipazha/" rel="noopener">uralairlines.ru ↗</a></li>
+        <li id="src-9"><span class="no mono">09</span><span class="t">«Ютэйр». Как перевезти пауэрбанк<small>Поддержка</small></span><a class="d mono" href="https://www.utair.ru/support/3/kak_perevezti_power_bank_i_drugie_akkumulyatory" rel="noopener">utair.ru ↗</a></li>
+        <li id="src-10"><span class="no mono">10</span><span class="t">«Азимут». Перевозка литий-ионных аккумуляторов, Power Bank<small>Раздел «Power Bank»</small></span><a class="d mono" href="https://azimuth.ru/ru/passengers/baggage/li-ion" rel="noopener">azimuth.ru ↗</a></li>
+        <li id="src-11"><span class="no mono">11</span><span class="t">«Россия». Перевозка багажа и&nbsp;ручной клади<small>Правила перевозки портативных зарядных устройств</small></span><a class="d mono" href="https://www.rossiya-airlines.com/flight-with-us/category_passenger/your_baggage/" rel="noopener">rossiya-airlines.com ↗</a></li>
+        <li id="src-12"><span class="no mono">12</span><span class="t">Red Wings. Правила перевозки<small>Пункт 7.9</small></span><a class="d mono" href="https://flyredwings.com/regulations/" rel="noopener">flyredwings.com ↗</a></li>
       </ol>
     </section>
 
@@ -418,7 +484,7 @@
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
- {"@type":"Question","name":"Можно ли зарядить телефон от повербанка в полёте?","acceptedAnswer":{"@type":"Answer","text":"У «Аэрофлота» и «Победы» — нет, весь полёт. В рекомендациях IATA запрет только на рулении, взлёте и посадке, но на борту действуют правила авиакомпании."}},
+ {"@type":"Question","name":"Можно ли зарядить телефон от повербанка в полёте?","acceptedAnswer":{"@type":"Answer","text":"Нет. По правилам ICAO с 27 марта 2026 года повербанк на борту не заряжают и не заряжают от него телефон. У «Аэрофлота», «России», «Победы», S7, «Уральских авиалиний» и «Ютэйр» — запрет на весь полёт; у Red Wings — на рулении, взлёте и посадке."}},
  {"@type":"Question","name":"Можно ли сдать повербанк в багаж?","acceptedAnswer":{"@type":"Answer","text":"Нет. Только в ручной клади, при себе."}},
  {"@type":"Question","name":"Сколько повербанков можно взять?","acceptedAnswer":{"@type":"Answer","text":"Не больше двух на человека."}},
  {"@type":"Question","name":"Что если на корпусе не указаны Вт·ч?","acceptedAnswer":{"@type":"Answer","text":"По правилам IATA Вт·ч должны быть указаны на корпусе; если сотрудник не может их проверить, повербанк могут не пустить на борт. «Победа» предупреждает: без маркировки на корпусе повербанк могут изъять на досмотре. У Movespeed Вт·ч указаны на корпусе."}},
@@ -614,7 +680,7 @@ const BATS=
   const nb=s=>s.replace(/\B(?=(\d{3})+(?!\d))/g,' ');           // 10000 → 10 000
   const dec=x=>(Math.round(x*100)/100).toString().replace('.',',');  // 38.5 → 38,5
 
-  // 04 — таблица: Вт·ч и мАч — avalonica.ru, 26.11 (10 из 10 страниц); порядок — по Вт·ч
+  // 07 — таблица: Вт·ч и мАч — avalonica.ru, 26.11 (10 из 10 страниц); порядок — по Вт·ч
   const ROWS=[['MSP07',5000,18.5],['YSPBS05',5000,19.25],['YSPBQ10',10000,36],['MSP08',10000,37],['MSP16',10000,38.5],['MSP17 EU',10000,38.5],
               ['YSPBS10',10000,38.5],['MSP03',10000,38.5],['S20 Plus',20000,77],['M25 pro',25000,92.5]];
   document.querySelector('[data-rows]').innerHTML=ROWS.map(([n,c,w])=>`<tr><td>${n.replace(' ','&nbsp;')}</td><td class="n cap">${nb(String(c))}</td><td class="n"><b>${dec(w)}</b></td><td class="bar"><div class="a-sb" role="img" aria-label="${dec(w)} из 100 Вт·ч"><i style="--w:${w}%"></i></div></td></tr>`).join('');
@@ -622,7 +688,7 @@ const BATS=
   // 01 — живой блок: Вт·ч = мАч × В / 1000 (IATA: Wh = Ah × V); шкала 0…200 Вт·ч; ответы — тексты статьи
   const T=document.querySelector('[data-tool]'),R=T.querySelector('#a-mah'),O=T.querySelector('[data-mahv]'),W=T.querySelector('[data-whv]'),
         S=T.querySelector('[data-scale]'),A=[...T.querySelectorAll('.a-ans span')],V=T.querySelector('[data-verd]'),B=[...T.querySelectorAll('.a-seg button')];
-  const VERD={ok:'<b>Можно</b>&nbsp;— в&nbsp;ручной клади, не&nbsp;больше двух.',mid:'<b>Зависит от&nbsp;авиакомпании</b>&nbsp;— по&nbsp;рекомендациям IATA 2026&nbsp;года нельзя, «Победа» разрешает.',no:'<b>Нельзя.</b>'};
+  const VERD={ok:'<b>Можно</b>&nbsp;— в&nbsp;ручной клади, не&nbsp;больше двух.',mid:'<b>Зависит от&nbsp;авиакомпании</b>&nbsp;— S7, «Победа» и&nbsp;«Ютэйр» разрешают, «Уральские авиалинии»&nbsp;— нет. Спросите свою до&nbsp;поездки.',no:'<b>Нельзя.</b>'};
   let v=3.85;
   const upd=()=>{const mah=+R.value,wh=mah*v/1000,z=wh<=100?'ok':wh<=160?'mid':'no';
     O.textContent=nb(String(mah));W.textContent=dec(wh);
