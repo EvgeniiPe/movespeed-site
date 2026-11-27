@@ -351,6 +351,16 @@
   </g>
   <text class="pw mu" x="118" y="56" data-k="fade" data-t="1400">моделей с CCC</text>
 </svg></div></a></li>
+  <li><a href="article-05-2026-11-27.html"><span class="no mono">05</span><h3>Магнитный повербанк: MagSafe и&nbsp;Qi2</h3><span class="tg mono">На магните</span><div class="pv"><svg class="ill" viewBox="0 0 220 84" aria-hidden="true">
+  <g data-k="fade" data-d="300"><rect class="bd" x="30" y="6" width="44" height="72" rx="9"/><rect class="sw" x="35" y="11" width="14" height="14" rx="4"/></g>
+  <g data-k="slide" data-t="250"><rect class="pt" x="36" y="31" width="32" height="40" rx="6"/></g>
+  <g class="on">
+    <circle class="gl" cx="52" cy="51" r="10" pathLength="1" data-k="draw" data-t="750" data-d="400"/>
+    <path class="gl" d="M118 31l5 5 9-10" pathLength="1" data-k="draw" data-t="1100" data-d="300"/>
+    <text class="pn" x="140" y="36" data-k="fade" data-t="1250">7 из 10</text>
+  </g>
+  <text class="pw mu" x="118" y="56" data-k="fade" data-t="1350">на магните</text>
+</svg></div></a></li>
   </ol>
 </section>
 
@@ -402,7 +412,7 @@
         <p><b>Официальный импортёр Movespeed в&nbsp;России</b>&nbsp;— ООО&nbsp;«ТД&nbsp;„Авалон“».</p>
         <a class="frame" href="#">Где купить <span>↗</span></a>
       </div>
-      <div class="cols"><div class="col"><h4 class="mono">Каталог</h4><ul><li><a href="#">Аккумуляторы</a></li><li><a href="#">Где купить</a></li></ul></div><!-- «Зарядные устройства» убран: блок скрыт [В 26.11: шаг 3 плана — «да, делай подвал»] --><div class="col"><h4 class="mono">Гид</h4><ul><li><a href="article-01-2026-11-26.html">Как выбрать повербанк</a></li><li><a href="article-02-2026-11-26.html">Правило 100&nbsp;Вт·ч</a></li><li><a href="article-03-2026-11-26.html">PD и&nbsp;PPS</a></li><li><a href="article-04-2026-11-26.html">CCC на&nbsp;повербанке</a></li><li><a href="articles-2026-11-26.html">Все статьи</a></li></ul></div><div class="col"><h4 class="mono">Поддержка</h4><ul><li><a href="#">Гарантия</a></li><li><a href="#">Вопросы</a></li><li><a href="#">Контакты</a></li><li><a href="tel:88005113183">8&nbsp;800 511-31-83</a></li><li><a href="mailto:warranty@avalonica.ru">warranty@avalonica.ru</a></li><li><a href="mailto:info@avalonica.ru">info@avalonica.ru</a></li><li><span class="hrs">Пн–Пт 9:00–19:00</span></li></ul></div></div>
+      <div class="cols"><div class="col"><h4 class="mono">Каталог</h4><ul><li><a href="#">Аккумуляторы</a></li><li><a href="#">Где купить</a></li></ul></div><!-- «Зарядные устройства» убран: блок скрыт [В 26.11: шаг 3 плана — «да, делай подвал»] --><div class="col"><h4 class="mono">Гид</h4><ul><li><a href="article-01-2026-11-26.html">Как выбрать повербанк</a></li><li><a href="article-02-2026-11-26.html">Правило 100&nbsp;Вт·ч</a></li><li><a href="article-03-2026-11-26.html">PD и&nbsp;PPS</a></li><li><a href="article-04-2026-11-26.html">CCC на&nbsp;повербанке</a></li><li><a href="article-05-2026-11-27.html">Магнитный повербанк</a></li><li><a href="articles-2026-11-26.html">Все статьи</a></li></ul></div><div class="col"><h4 class="mono">Поддержка</h4><ul><li><a href="#">Гарантия</a></li><li><a href="#">Вопросы</a></li><li><a href="#">Контакты</a></li><li><a href="tel:88005113183">8&nbsp;800 511-31-83</a></li><li><a href="mailto:warranty@avalonica.ru">warranty@avalonica.ru</a></li><li><a href="mailto:info@avalonica.ru">info@avalonica.ru</a></li><li><span class="hrs">Пн–Пт 9:00–19:00</span></li></ul></div></div>
     </div>
     <div class="ln"></div>
     <div class="legal"><div><span>ООО&nbsp;«ТД&nbsp;„Авалон“»</span><span>ИНН&nbsp;7810541427</span><span>ОГРН&nbsp;1087847030644</span><span>Москва, 47&nbsp;км МКАД</span></div><div><span>©&nbsp;2026 Movespeed</span><span><a href="#" class="mine">Политика конфиденциальности</a></span></div></div>
@@ -707,13 +717,14 @@ document.querySelector('#s5c [data-grid]').innerHTML=[1,2,3].map(k=>({n:'Зар�
       ${buy}</article>`).join('');
 
 // Блок 06 — мини-схемы гида: проигрываются при каждом наведении на статью (и фокусе) [В 25.11: «движение каждый раз при наведении на статью»].
-// Разметка — конечный кадр: без скрипта и при reduced motion видно его. data-k — шаг (fade · show · draw · grow), data-t — старт, data-d — длительность, мс.
+// Разметка — конечный кадр: без скрипта и при reduced motion видно его. data-k — шаг (fade · show · draw · grow · slide), data-t — старт, data-d — длительность, мс.
 // Шаги fade/grow анимируют CSS transform — не ставить их на элемент с атрибутом transform (заменят его; 25.11 корпус 01 так вырастал до 328 × 104).
 (()=>{
   const rm=matchMedia('(prefers-reduced-motion: reduce)');
   const KF={fade:[{opacity:0,transform:'translateY(3px)'},{opacity:1,transform:'none'}],show:[{opacity:0},{opacity:1}],
-    draw:[{strokeDashoffset:1},{strokeDashoffset:0}],grow:[{transform:'scaleX(0)'},{transform:'scaleX(1)'}]};
-  const DUR={grow:1200,draw:500};
+    draw:[{strokeDashoffset:1},{strokeDashoffset:0}],grow:[{transform:'scaleX(0)'},{transform:'scaleX(1)'}],
+    slide:[{opacity:0,transform:'translateX(28px)'},{opacity:1,transform:'none'}]};   /* въезд справа — повербанк в строке 05 [В 27.11: «А · Примагничивается»] */
+  const DUR={grow:1200,draw:500,slide:500};
   function play(svg){
     svg.getAnimations({subtree:true}).forEach(a=>a.cancel());
     if(rm.matches) return;
