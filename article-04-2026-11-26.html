@@ -185,11 +185,17 @@
 .a-src .d{color:var(--mut);text-decoration:none;white-space:nowrap}
 .a-src .d:hover{color:var(--acc)}
 
-/* модели по теме — карточки 03 главной (остров .gb), две в ряд */
+/* модели по теме — карточки 03 главной (остров .gb) размером и лентой как на главной [В 27.11: «модели по теме не листаются и можно их сделать меньше как на главной карточки»]:
+   ширина карточки — формула ленты 03 главной: (ширина страницы до 1440 − поля 2×32 − 4 зазора по 16) / 4,5 → 292 px при 1440, 256 при 1280 (замер главной 27.11);
+   --pad не годится — в нём 100 %, внутри ленты он считался бы от её ширины. Полоса со стрелками — под лентой, только если карточки не помещаются (скрипт сборки). */
 .a-more{padding-top:96px}
 .a-more h2{margin:0 0 28px;font-weight:500;font-size:clamp(26px,2.6cqw,36px);letter-spacing:-.01em;color:var(--fg)}
-.a-cards{display:flex;gap:16px}
-.ar .a-cards .m{flex:0 0 calc((100% - 16px)/2)}
+.a-cards{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-behavior:smooth}
+.a-cards::-webkit-scrollbar{display:none}
+.ar .a-cards .m{flex:0 0 calc((min(100vw,1440px) - 128px)/4.5);scroll-snap-align:start}
+.a-more .bar[hidden]{display:none}
+@media (max-width:1100px){.ar .a-cards .m{flex-basis:calc((100vw - 96px)/2.5)}}
+@media (prefers-reduced-motion:reduce){.a-cards{scroll-behavior:auto}}
 
 /* соседние статьи */
 .a-pn{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:56px}
@@ -221,9 +227,8 @@
   :where(.ar) p,.a-list li{font-size:16px}
   .a-short{padding:22px 20px 20px}.a-short p{font-size:17px}
   .a-short.a-fig{grid-template-columns:1fr;gap:24px}
-  .a-cards{overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-right:calc(-1*var(--pad));padding-right:var(--pad)}
-  .a-cards::-webkit-scrollbar{display:none}
-  .ar .a-cards .m{flex:0 0 80%;scroll-snap-align:start}
+  .a-cards{margin-right:calc(-1*var(--pad));padding-right:var(--pad)}
+  .ar .a-cards .m{flex-basis:76%}   /* как лента 03 главной на телефоне */
   .a-pn{grid-template-columns:1fr}.a-pn a:last-child{text-align:left}
   .a-src li{grid-template-columns:32px minmax(0,1fr)}.a-src .d{grid-column:2}
 }
@@ -671,5 +676,23 @@ const BATS=
   const box=document.querySelector('[data-cards]');
   if(box&&typeof BATS!=='undefined'){const want=box.dataset.cards.split('|');box.innerHTML=want.map(n=>BATS.find(m=>m.n===n)).filter(Boolean).map(batCard).join('')}
 })();
+</script>
+<script>
+/* «Модели по теме» — лента как 03 главной: счётчик, полоска, стрелки; полоса только если карточки не помещаются
+   [В 27.11: «модели по теме не листаются и можно их сделать меньше как на главной карточки»]. Логика upd/step — как mountRibbon главной. */
+(()=>{const pad=n=>String(n).padStart(2,'0');
+  document.querySelectorAll('.a-cards').forEach(T=>{if(!T.children.length)return;
+    const bar=document.createElement('div');bar.className='bar';
+    bar.innerHTML='<span class="counter"></span><div class="prog"><i></i></div><div class="arrows"><button class="circ" type="button" aria-label="Назад">←</button><button class="circ" type="button" aria-label="Вперёд">→</button></div>';
+    T.after(bar);const C=bar.querySelector('.counter'),P=bar.querySelector('.prog i'),[L,R]=bar.querySelectorAll('button');
+    const stepW=()=>{const c=T.querySelector('.m');return c?c.getBoundingClientRect().width+16:300};
+    const upd=()=>{const n=T.children.length,max=T.scrollWidth-T.clientWidth;bar.hidden=max<=2;if(bar.hidden)return;
+      const p=T.scrollLeft/max,vis=T.clientWidth/T.scrollWidth,w=stepW();
+      const first=Math.min(n,Math.round(T.scrollLeft/w)+1),last=Math.max(first,Math.min(n,Math.floor((T.scrollLeft+T.clientWidth+16)/w)));
+      C.innerHTML=`<b>${pad(first)}${last>first?'–'+pad(last):''}</b> / ${pad(n)}`;
+      P.style.width=(vis*100)+'%';P.style.transform=`translateX(${p*(1-vis)/vis*100}%)`;
+      L.disabled=T.scrollLeft<=2;R.disabled=T.scrollLeft>=max-2};
+    L.onclick=()=>T.scrollBy({left:-stepW()});R.onclick=()=>T.scrollBy({left:stepW()});
+    T.addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd()})})();
 </script>
 </body></html>
